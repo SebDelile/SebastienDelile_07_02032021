@@ -1,0 +1,227 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+body {
+  box-sizing: border-box;
+}
+
+input {
+  border: none;
+  border-radius: 5px;
+}
+input:focus, input:hover {
+  outline: none;
+}
+
+button {
+  border: none;
+  border-radius: 5px;
+  color: inherit;
+  background-color: inherit;
+}
+button:focus, button:hover {
+  outline: none;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.color__ingredients {
+  background-color: #3282F7;
+  color: white;
+}
+.color__ustensils {
+  background-color: #ED6454;
+  color: white;
+}
+.color__appliance {
+  background-color: #68D9A4;
+  color: white;
+}
+
+.header {
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+.header__logo__wrapper {
+  text-align: center;
+}
+
+.recipe {
+  background-color: #E7E7E7;
+  border-radius: 5px;
+  border: none;
+}
+.recipe__wrapper {
+  margin-bottom: 30px;
+}
+.recipe__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  line-height: 1.2;
+  margin-bottom: 1.25rem;
+}
+.recipe__title {
+  font-size: 1.125rem;
+  font-weight: 400;
+  margin-bottom: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.recipe__clock {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+}
+.recipe__clock::before {
+  display: inline-block;
+  height: 1.25rem;
+  width: 1.25rem;
+  content: "";
+  background: url("../img/icons/clock.svg") no-repeat 0 0;
+  background-size: 100%;
+  margin-right: 0.375rem;
+}
+.recipe__text {
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.2;
+  overflow: hidden;
+  height: calc(7 * 0.75rem * 1.2);
+}
+.recipe__ingredients__list {
+  list-style: none;
+  padding-right: 0.125rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 7;
+  overflow: hidden;
+}
+.recipe__description {
+  padding-left: 0.125rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 7;
+  overflow: hidden;
+}
+.search {
+  margin-bottom: 1.25rem;
+}
+.search__bar {
+  width: 100%;
+  height: 4.25rem;
+  background-color: #E7E7E7;
+  color: black;
+  font-size: 1.125rem;
+  font-weight: 400;
+  padding-left: 1.375rem;
+}
+.search__icon {
+  position: absolute;
+  top: 50%;
+  right: calc(1rem + 15px);
+  height: 2rem;
+  transform: translateY(-50%);
+}
+
+.tag {
+  display: none;
+  margin-top: 0.25rem;
+  margin-bottom: 1rem;
+}
+.tag__button {
+  font-size: 0.875rem;
+  font-weight: 700;
+  padding: 0.625rem 1.25rem;
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 10px;
+}
+.tag__button::after {
+  display: inline-block;
+  height: 1.25rem;
+  width: 1.25rem;
+  content: "";
+  background: url("../img/icons/close.svg") no-repeat 0 0;
+  background-size: 100%;
+  margin-left: 0.75rem;
+}
+
+.tagsearch__wrapper {
+  flex: unset;
+  width: 12.5rem;
+  height: 4.3125rem;
+  position: relative;
+  margin-bottom: 1.5rem;
+  padding-right: 5px;
+}
+.tagsearch__input {
+  height: 100%;
+  width: 100%;
+  padding: 0 2.25rem 0 1.625rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: white;
+}
+.tagsearch__input::placeholder {
+  color: white;
+}
+.tagsearch__input:focus {
+  border-radius: 5px 5px 0 0;
+  padding-left: 1.125rem;
+}
+.tagsearch__input:focus + .tagsearch__icon {
+  transform: translateY(-50%) rotateX(180deg);
+}
+.tagsearch__input:focus + .tagsearch__icon + .tagsearch__list {
+  display: grid;
+}
+.tagsearch__icon {
+  height: auto;
+  width: 1rem;
+  position: absolute;
+  top: 50%;
+  right: calc(1.125rem + 15px);
+  transform: translateY(-50%);
+  z-index: 10;
+}
+.tagsearch__list {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 15px;
+  z-index: 100;
+  max-height: 20rem;
+  padding: 0 1.125rem 1.125rem 1.125rem;
+  grid-template-rows: repeat(10, minmax(0, auto));
+  grid-auto-flow: column;
+  column-gap: 0.5rem;
+  list-style: none;
+  border-radius: 0 0 5px 5px;
+}
+.tagsearch__list__item {
+  background-color: inherit;
+}
+.tagsearch__list__button {
+  height: 2rem;
+  min-width: calc(12.5rem - 15px - 5px - 2 * 1.125rem);
+  text-align: left;
+  font-size: 1.125rem;
+  font-weight: 400;
+}
+
+/*# sourceMappingURL=style.css.map */

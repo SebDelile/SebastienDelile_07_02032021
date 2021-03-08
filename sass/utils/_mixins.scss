@@ -1,0 +1,12 @@
+@mixin text-ellipsis($wrap : nowrap) {
+    white-space: $wrap;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
+@mixin paragraph-ellipsis($lines) {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $lines;
+    overflow: hidden;
+}

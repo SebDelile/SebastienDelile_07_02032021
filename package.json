@@ -1,0 +1,20 @@
+{
+  "name": "mes-petits-plats",
+  "version": "1.0.0",
+  "description": "projet07 du parcours developeur front end open classrooms",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass --watch ./sass/main.scss:./public/css/style.css",
+    "prefix": "postcss ./public/css/style.css --use autoprefixer -d ./public/css/prefixed/"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "",
+  "license": "ISC",
+  "browserslist": "last 4 versions",
+  "bugs": {
+  },
+  "homepage": ""
+}
