@@ -80,6 +80,7 @@ body {
   font-size: 1.125rem;
   font-weight: 400;
   margin-bottom: 0;
+  margin-right: 0.25rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -109,14 +110,14 @@ body {
 }
 .recipe__ingredients__list {
   list-style: none;
-  padding-right: 0.125rem;
+  margin-right: 0.25rem;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 7;
   overflow: hidden;
 }
 .recipe__description {
-  padding-left: 0.125rem;
+  margin-left: 0.25rem;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 7;

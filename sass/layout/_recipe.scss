@@ -24,6 +24,7 @@
     font-size: 1.125rem;
     font-weight: 400;
     margin-bottom: 0;
+    margin-right: 0.25rem;
     @include text-ellipsis;
   }
   &__clock {
@@ -52,12 +53,12 @@
   &__ingredients {
     &__list {
       list-style: none;
-      padding-right: 0.125rem;
+      margin-right: 0.25rem;
       @include paragraph-ellipsis(7); //to be consistent with recipe__text height
     }
   }
   &__description {
-    padding-left: 0.125rem;
+    margin-left: 0.25rem;
     @include paragraph-ellipsis(7); //to be consistent with recipe__text height
   }
   &__link {
