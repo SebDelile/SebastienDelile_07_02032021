@@ -58,6 +58,12 @@ body {
   background-color: #E7E7E7;
   border-radius: 5px;
   border: none;
+  color: inherit;
+  text-decoration: inherit;
+}
+.recipe:hover {
+  color: inherit;
+  text-decoration: inherit;
 }
 .recipe__wrapper {
   margin-bottom: 30px;
@@ -222,6 +228,11 @@ body {
   text-align: left;
   font-size: 1.125rem;
   font-weight: 400;
+}
+
+.goback {
+  padding: 4rem;
+  font-size: 3rem;
 }
 
 /*# sourceMappingURL=style.css.map */

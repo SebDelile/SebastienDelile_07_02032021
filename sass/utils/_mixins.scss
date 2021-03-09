@@ -1,12 +1,21 @@
-@mixin text-ellipsis($wrap : nowrap) {
-    white-space: $wrap;
-    overflow: hidden;
-    text-overflow: ellipsis
+@mixin text-ellipsis($wrap: nowrap) {
+  white-space: $wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @mixin paragraph-ellipsis($lines) {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: $lines;
-    overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $lines;
+  overflow: hidden;
+}
+
+@mixin link-nostyle {
+  color: inherit;
+  text-decoration: inherit;
+  &:hover {
+    color: inherit;
+    text-decoration: inherit;
+  }
 }
