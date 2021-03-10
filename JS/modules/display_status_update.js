@@ -10,6 +10,7 @@
 //----------------------------------- Export(s) ----------------------------------------------
 //--------------------------------------------------------------------------------------------
 
-export function searchTableGenerator() {
-    
+export function displayStatusUpdate(oldTable, newTable, index) {
+  newTable.push(oldTable[index]);
+  oldTable.slice(index, index);
 }

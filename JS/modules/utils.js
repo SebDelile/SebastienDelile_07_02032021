@@ -1,5 +1,87 @@
+//to be used to clean the searchable table and the user's input in the search bar
 export function stringFormat(string) {
-    string = string.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // remove accents and diacritics
-    string = string.charAt(0).toUpperCase() + string.substr(1).toLowerCase(); // 1st char turns uppercase, other chars turn lowercase
-    return string;
+  string = string.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); // remove accents and diacritics
+  string = string.charAt(0).toUpperCase() + string.substr(1).toLowerCase(); // 1st char turns uppercase, other chars turn lowercase
+  return string;
 }
+
+//node to be used on the linked lists
+export class ListNode {
+  constructor(data, next = null) {
+    (this.data = data), (this.next = next);
+  }
+  deleteNextNode() {
+    this.next = this.next.next;
+    //note that it won't be called on the tail (node.next can't be null)
+  }
+}
+
+//this one is ok for the tag, but it need to be changed for the recipe
+//something like : return searchAlgo(searchableTable[data], input) //data being the recipe's id
+export let testFunction = function(data, input) {
+  return data === input
+}
+
+//list to contain recipe's id or tags
+export class DualLinkedList {
+  constructor() {
+    (this.shown = { head: null }), (this.hidden = { head: null });
+  }
+  updateList(testFunction, input, list,) {
+    let node = this[list].head;
+    let previousNode = null;
+    const oppositeList = list === "shown" ? "hidden" : list === "hidden" ? "shown" : "misspelled the list parameter you idiot";
+    while (node) {
+      if (testFunction(node.data, input)) {
+        //item matches the parameter, so it has to be moved to the opposite list and deleted from this one
+        this.insertAtBeginning(oppositeList, node.data);
+        if (previousNode) {
+          //usual case, links the previous node to the next node, so the actual node is deleted from the list
+          previousNode.deleteNextNode();
+        } else {
+          //particuliar case when the node to move was the head, so previous node doesn't exist and head should be updated
+          this[list].head = this[list].head.next;
+        }
+      } else {
+        //previous node changed only if the node is kept
+        previousNode = node;
+      }
+      //go to next node whatever the case
+      node = node.next;
+    }
+  }
+  insertAtBeginning(list, data) {
+    //insert at the begining means moving the head of the list to the new item and links it to the previous head
+    let newNode = new ListNode(data);
+    newNode.next = this[list].head;
+    this[list].head = newNode;
+  }
+  concatenate() {
+    //if not empty, put hiddenList at the begining of the shownList
+    if (this.hidden.head === null) {
+      return;
+    } else {
+      //goes to the tail of hiddenList
+      let hiddenTail = this.hidden.head;
+      while (hiddenTail.next) {
+        hiddenTail = hiddenTail.next;
+      }
+      //insert at the beginning of shownList and clear hiddenList
+      hiddenTail.next = this.shown.head;
+      this.shown.head = this.hidden.head;
+      this.hidden.head = null;
+    }
+  }
+  //used for tests
+  print(list) {
+    let print = "";
+    let node = this[list].head;
+    while (node) {
+      print += " " + node.data;
+      node = node.next;
+    }
+    return print;
+  }
+}
+
+

@@ -10,6 +10,6 @@
 //----------------------------------- Export(s) ----------------------------------------------
 //--------------------------------------------------------------------------------------------
 
-export function displayedStatusUpdate(newStatus, recipe) {
+export function searchedTableGenerator() {
     
 }

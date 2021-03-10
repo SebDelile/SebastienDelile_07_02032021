@@ -2,7 +2,7 @@
 //----------------------------------- imports(s) ----------------------------------------------
 //--------------------------------------------------------------------------------------------
 
-import { displayedIngredients, displayedAppliances, displayedUstensils } from "../main.js";
+import { shownIngredients, shownAppliances, shownUstensils } from "../main.js";
 
 //--------------------------------------------------------------------------------------------
 //----------------------------- Intermediate stage(s) ----------------------------------------
@@ -15,18 +15,18 @@ import { displayedIngredients, displayedAppliances, displayedUstensils } from ".
 
 export function tagsTablesGenerator(recipe) {
   for (let item of recipe.ingredients) {
-    if (!displayedIngredients.includes(item.ingredient)) {
-      displayedIngredients.push(item.ingredient);
+    if (!shownIngredients.includes(item.ingredient)) {
+      shownIngredients.push(item.ingredient);
     }
   }
 
-  if (!displayedAppliances.includes(recipe.appliance)) {
-    displayedAppliances.push(recipe.appliance);
+  if (!shownAppliances.includes(recipe.appliance)) {
+    shownAppliances.push(recipe.appliance);
   }
 
   for (let item of recipe.ustensils) {
-    if (!displayedUstensils.includes(item)) {
-      displayedUstensils.push(item);
+    if (!shownUstensils.includes(item)) {
+      shownUstensils.push(item);
     }
   }
 }
