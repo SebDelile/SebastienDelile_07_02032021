@@ -10,7 +10,6 @@
 //----------------------------------- Export(s) ----------------------------------------------
 //--------------------------------------------------------------------------------------------
 
-export function displayStatusUpdate(oldTable, newTable, index) {
-  newTable.push(oldTable[index]);
-  oldTable.slice(index, index);
+export function searchedTableFilling() {
+    
 }

@@ -28,50 +28,26 @@
           <img class="search__icon" src="public/img/icons/search.svg" alt="loupe" aria-hidden="true" />
         </div>
       </section>
-      <section class="tag row">
+      <section class="tag hidden row">
         <h2 class="sr-only">Tags sélectionnés</h2>
-        <div class="tag__wrapper col">
-          <button type="button" class="tag__button color__ingredients">Exemple1</button>
-          <button type="button" class="tag__button color__ustensils">Exemple2</button>
-        </div>
+        <div class="tag__wrapper col"></div>
       </section>
       <section class="tagsearch row">
         <h2 class="sr-only">Recherche par tags</h2>
         <div class="tagsearch__wrapper col">
-          <input type="text" class="tagsearch__input color__ingredients" placeholder="Ingrédients" />
+          <input type="text" class="tagsearch__input color__ingredients" id="input-ingredients" placeholder="Ingrédients" />
           <img class="tagsearch__icon" src="public/img/icons/menu.svg" alt="icon-menu" aria-hidden="true" />
-          <ul class="tagsearch__list color__ingredients" id="list-ingredients">
-            <li class="tagsearch__list__item"><button class="tagsearch__list__button">item 1</button></li>
-            <li class="tagsearch__list__item"><button class="tagsearch__list__button">item 2</button></li>
-            <li class="tagsearch__list__item"><button class="tagsearch__list__button">item 3</button></li>
-          </ul>
+          <ul class="tagsearch__list color__ingredients" id="list-ingredients"></ul>
         </div>
         <div class="tagsearch__wrapper col">
-          <input type="text" class="tagsearch__input color__appliance" placeholder="Appareil" />
+          <input type="text" class="tagsearch__input color__appliances" id="input-appliances" placeholder="Appareils" />
           <img class="tagsearch__icon" src="public/img/icons/menu.svg" alt="icon-menu" aria-hidden="true" />
-          <ul class="tagsearch__list color__appliance" id="list-appliance">
-            <li class="tagsearch__list__item"><button class="tagsearch__list__button">item 1</button></li>
-            <li class="tagsearch__list__item"><button class="tagsearch__list__button">item 2</button></li>
-            <li class="tagsearch__list__item"><button class="tagsearch__list__button">item 3</button></li>
-            <li class="tagsearch__list__item"><button class="tagsearch__list__button">item 4</button></li>
-            <li class="tagsearch__list__item"><button class="tagsearch__list__button">item 5</button></li>
-            <li class="tagsearch__list__item"><button class="tagsearch__list__button">item 6</button></li>
-            <li class="tagsearch__list__item"><button class="tagsearch__list__button">item 7</button></li>
-            <li class="tagsearch__list__item"><button class="tagsearch__list__button">item 8</button></li>
-            <li class="tagsearch__list__item"><button class="tagsearch__list__button">item 9</button></li>
-            <li class="tagsearch__list__item"><button class="tagsearch__list__button">item 10</button></li>
-            <li class="tagsearch__list__item"><button class="tagsearch__list__button">item 11</button></li>
-            <li class="tagsearch__list__item"><button class="tagsearch__list__button">item 12</button></li>
-          </ul>
+          <ul class="tagsearch__list color__appliances" id="list-appliances"></ul>
         </div>
         <div class="tagsearch__wrapper col">
-          <input type="text" class="tagsearch__input color__ustensils" placeholder="Ustensiles" />
+          <input type="text" class="tagsearch__input color__ustensils" id="input-ustensils" placeholder="Ustensiles" />
           <img class="tagsearch__icon" src="public/img/icons/menu.svg" alt="icon-menu" aria-hidden="true" />
-          <ul class="tagsearch__list color__ustensils" id="list-ustensils">
-            <li class="tagsearch__list__item"><button class="tagsearch__list__button">item 1</button></li>
-            <li class="tagsearch__list__item"><button class="tagsearch__list__button">item 2</button></li>
-            <li class="tagsearch__list__item"><button class="tagsearch__list__button">item 3</button></li>
-          </ul>
+          <ul class="tagsearch__list color__ustensils" id="list-ustensils"></ul>
         </div>
       </section>
       <section class="recipe__grid row">

@@ -29,3 +29,23 @@ button {
     outline: none;
   }
 }
+
+.color {
+  &__ingredients {
+    background-color: $color-ingredients;
+    color: white;
+  }
+  &__ustensils {
+    background-color: $color-ustensils;
+    color: white;
+  }
+  &__appliances {
+    background-color: $color-appliance;
+    color: white;
+  }
+}
+
+
+.hidden {
+  display:none;
+}

@@ -29,10 +29,6 @@ button:focus, button:hover {
   outline: none;
 }
 
-body {
-  font-family: "Lato", sans-serif;
-}
-
 .color__ingredients {
   background-color: #3282F7;
   color: white;
@@ -41,9 +37,17 @@ body {
   background-color: #ED6454;
   color: white;
 }
-.color__appliance {
+.color__appliances {
   background-color: #68D9A4;
   color: white;
+}
+
+.hidden {
+  display: none;
+}
+
+body {
+  font-family: "Lato", sans-serif;
 }
 
 .header {
@@ -144,7 +148,6 @@ body {
 }
 
 .tag {
-  display: none;
   margin-top: 0.25rem;
   margin-bottom: 1rem;
 }
@@ -168,17 +171,19 @@ body {
   margin-left: 0.75rem;
 }
 
+.tagsearch {
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
 .tagsearch__wrapper {
-  flex: unset;
-  width: 12.5rem;
-  height: 4.3125rem;
+  flex: 0 1 0;
   position: relative;
   margin-bottom: 1.5rem;
   padding-right: 5px;
 }
 .tagsearch__input {
-  height: 100%;
-  width: 100%;
+  width: 12.5rem;
+  height: 4.3125rem;
   padding: 0 2.25rem 0 1.625rem;
   font-size: 1.125rem;
   font-weight: 700;
@@ -194,9 +199,6 @@ body {
 .tagsearch__input:focus + .tagsearch__icon {
   transform: translateY(-50%) rotateX(180deg);
 }
-.tagsearch__input:focus + .tagsearch__icon + .tagsearch__list {
-  display: grid;
-}
 .tagsearch__icon {
   height: auto;
   width: 1rem;
@@ -209,26 +211,37 @@ body {
 .tagsearch__list {
   display: none;
   position: absolute;
-  top: 100%;
+  top: calc(100% - 0.5rem);
   left: 15px;
   z-index: 100;
-  max-height: 20rem;
-  padding: 0 1.125rem 1.125rem 1.125rem;
-  grid-template-rows: repeat(10, minmax(0, auto));
+  max-height: calc(20rem + 0.5rem + 1.125rem);
+  max-width: calc(3 * 13.6125rem + 2 * 0.5rem);
+  overflow: hidden;
+  padding: 0.5rem 0.5rem 1.125rem 0.5rem;
+  grid-template-rows: repeat(10, auto);
+  grid-template-columns: repeat(3, auto);
   grid-auto-flow: column;
-  column-gap: 0.5rem;
   list-style: none;
   border-radius: 0 0 5px 5px;
 }
 .tagsearch__list__item {
   background-color: inherit;
+  height: 2rem;
+  width: 13.6125rem;
 }
 .tagsearch__list__button {
-  height: 2rem;
-  min-width: calc(12.5rem - 15px - 5px - 2 * 1.125rem);
+  height: 100%;
+  padding: 0 0.75rem;
   text-align: left;
   font-size: 1.125rem;
   font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tagsearch__list__button:hover, .tagsearch__list__button:focus {
+  background-color: white;
+  color: black;
 }
 
 .goback {
