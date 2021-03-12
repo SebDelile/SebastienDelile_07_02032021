@@ -6,12 +6,6 @@
 //----------------------------- Intermediate stage(s) ----------------------------------------
 //--------------------------------------------------------------------------------------------
 
-//this one is ok for the tag, but it need to be changed for the recipe
-//something like : return searchAlgo(searchableTable[data], input) //data being the recipe's id
-export let testFunction = function (data, input) {
-  return data === input;
-};
-
 //--------------------------------------------------------------------------------------------
 //----------------------------------- Export(s) ----------------------------------------------
 //--------------------------------------------------------------------------------------------
@@ -29,10 +23,10 @@ export class ListNode {
 
 //list to contain recipe's id or tags
 export class DualLinkedList {
-  constructor(relatedHtmlElements = null) {
+  constructor(category) {
     this.shown = { head: null };
     this.hidden = { head: null };
-    this.relatedHtmlElements = relatedHtmlElements;
+    this.category = category;
   }
   updateList(testFunction, input, list) {
     let node = this[list].head;
@@ -50,8 +44,9 @@ export class DualLinkedList {
           //particuliar case when the node to move was the head, so previous node doesn't exist and head should be updated
           this[list].head = this[list].head.next;
         }
-        //finally the class hidden is add or remove depending on the list being browsed
-        this.relatedHtmlElements.getElementById(node.data).classList.toggle("hidden", displayToggle);
+        //finally the class hidden is add or remove depending on the list being browsed, only for tags
+        const nodeElement = document.getElementById(`${this.category}-${node.data}`);
+        nodeElement.classList.toggle("hidden", displayToggle);
       } else {
         //previous node changed only if the node is kept
         previousNode = node;
