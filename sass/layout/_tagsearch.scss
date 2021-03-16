@@ -1,4 +1,4 @@
-.tagsearch {
+.searchedtag {
   justify-content: flex-start;
   flex-wrap: nowrap;
   &__wrapper {
@@ -21,7 +21,7 @@
       border-radius: 5px 5px 0 0;
       //JS gives the same width as the list
       padding-left: 1.125rem;
-      + .tagsearch__icon {
+      + .searchedtag__icon {
         transform: translateY(-50%) rotateX(180deg);
       }
     }

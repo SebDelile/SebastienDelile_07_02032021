@@ -30,20 +30,18 @@ button {
   }
 }
 
-.color {
-  &__ingredients {
+[data-category="ingredients"] {
     background-color: $color-ingredients;
     color: white;
   }
-  &__ustensils {
+[data-category="ustensils"] {
     background-color: $color-ustensils;
     color: white;
   }
-  &__appliances {
+[data-category="appliances"] {
     background-color: $color-appliances;
     color: white;
   }
-}
 
 
 .hidden {

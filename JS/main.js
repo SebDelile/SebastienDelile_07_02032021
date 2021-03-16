@@ -6,24 +6,26 @@ import { DualLinkedList, ListNode } from "./modules/dual_linked_list.js";
 import { recipes } from "./modules/recipes_table.js";
 import { recipeElementGenerator } from "./modules/recipe_element_generator.js";
 import { tagsImport } from "./modules/tags_import.js";
-import { searchedTableFilling } from "./modules/searched_table_filling.js";
+import { searchableTableFilling } from "./modules/searchable_table_filling.js";
 import { searchAlgoritm } from "./modules/search_algoritm.js";
 import { tagSelection } from "./modules/tag_selection.js";
+import {searchedInputsUpdating} from "./modules/searched_inputs_updating.js"
 
 //--------------------------------------------------------------------------------------------
 //----------------------------------- DOM elements -------------------------------------------
 //--------------------------------------------------------------------------------------------
 
 const gridRecipes = document.querySelector(".recipe__grid");
-export const gridIngredients = document.getElementById("list-ingredients");
-export const gridAppliances = document.getElementById("list-appliances");
-export const gridUstensils = document.getElementById("list-ustensils");
-const inputIngredients = document.getElementById("input-ingredients");
-const inputAppliances = document.getElementById("input-appliances");
-const inputUstensils = document.getElementById("input-ustensils");
-const wrapperTagSearch = document.getElementsByClassName("tagsearch__wrapper");
-export const wrapperSelectedTag = document.querySelector(".tag__wrapper");
-const tagSearchButtons = document.getElementsByClassName("tagsearch__list__button");
+export const gridIngredients = document.querySelector(".searchedtag__list[data-category='ingredients']");
+export const gridAppliances = document.querySelector(".searchedtag__list[data-category='appliances']");
+export const gridUstensils = document.querySelector(".searchedtag__list[data-category='ustensils']");
+export const mainSearchInput = document.querySelector(".mainsearch__input");
+const inputIngredients = document.querySelector(".searchedtag__input[data-category='ingredients']");
+const inputAppliances = document.querySelector(".searchedtag__input[data-category='appliances']");
+const inputUstensils = document.querySelector(".searchedtag__input[data-category='ustensils']");
+const wrapperSearchedTag = document.getElementsByClassName("searchedtag__wrapper");
+export const selectedTags = document.querySelector(".selectedtag");
+const searchedTagButtons = document.getElementsByClassName("searchedtag__list__button");
 
 //--------------------------------------------------------------------------------------------
 //--------------------------------- Global variables -----------------------------------------
@@ -35,6 +37,10 @@ export let listIngredients = new DualLinkedList("ingredients");
 export let listAppliances = new DualLinkedList("appliances");
 export let listUstensils = new DualLinkedList("ustensils");
 
+//the table to be search in during the filtering processes (both recipe and tags)
+export const searchableTable = [["index0"]];
+//the table containig all the constraint to filter
+export let searchedInputs = { mainSearch: [], ingredients: [], appliances: [], ustensils: [] };
 
 //--------------------------------------------------------------------------------------------
 //--------------------------------- Data loading ------------------------------------------
@@ -49,48 +55,36 @@ for (let recipe of recipes) {
   //fills the 3 tables of tags
   tagsImport(recipe);
   //fills the table to be searched in by the algoritm
-  searchedTableFilling(recipe);
+  searchableTableFilling(recipe);
 }
-
 
 //--------------------------------------------------------------------------------------------
 //--------------------------------- Event listeners ------------------------------------------
 //--------------------------------------------------------------------------------------------
 
 //manages the opening/closing of the tags search suggestions : focus in the wrapper or click on the icon
-for (let wrapper of wrapperTagSearch) {
+for (let wrapper of wrapperSearchedTag) {
   wrapper.addEventListener("focusin", function () {
-    wrapper.querySelector(".tagsearch__list").style.display = "grid";
+    wrapper.querySelector(".searchedtag__list").style.display = "grid";
   });
   wrapper.addEventListener("focusout", function (event) {
     if (!this.contains(event.relatedTarget)) {
-      wrapper.querySelector(".tagsearch__list").style.display = "none";
+      wrapper.querySelector(".searchedtag__list").style.display = "none";
     }
   });
-  wrapper.querySelector(".tagsearch__icon").addEventListener("click", function(event) {
-    event.target.parentNode.querySelector(".tagsearch__input").focus()
-  })
+  wrapper.querySelector(".searchedtag__icon").addEventListener("click", function (event) {
+    event.target.parentNode.querySelector(".searchedtag__input").focus();
+  });
 }
 
 //gives the actions to do when a tag is choosen in the list of suggestions
-for (let button of tagSearchButtons) {
+for (let button of searchedTagButtons) {
   button.addEventListener("click", function (event) {
     const tagname = event.target.textContent;
     const category = event.target.dataset.category;
-    let list;
-    switch (category) {
-      case "ingredients":
-        list = listIngredients;
-        break;
-      case "appliances":
-        list = listAppliances;
-        break;
-      case "ustensils":
-        list = listUstensils;
-        break;
-    }
-    //const category = event.target.parentNode.parentNode.getAttribute("id").slice(5) //id of the grandparent <ul> is "list-****", so slice leaves the correcte category name
-    tagSelection(tagname, list);
+    tagSelection(tagname, category);
   });
 }
 
+//update the searchedInput
+mainSearchInput.addEventListener("input", searchedInputsUpdating)

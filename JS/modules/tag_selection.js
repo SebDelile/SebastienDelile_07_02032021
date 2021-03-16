@@ -2,7 +2,8 @@
 //----------------------------------- imports(s) ----------------------------------------------
 //--------------------------------------------------------------------------------------------
 
-import { wrapperSelectedTag } from "../main.js";
+import { selectedTags } from "../main.js";
+import {searchedInputsUpdating} from "./searched_inputs_updating.js"
 
 //--------------------------------------------------------------------------------------------
 //----------------------------- Intermediate stage(s) ----------------------------------------
@@ -12,19 +13,20 @@ import { wrapperSelectedTag } from "../main.js";
 
 function createSelectedTagElement(tagname, category) {
   let element = document.createElement("button");
-  element.classList.add("tag__button", `color__${category}`);
+  element.classList.add("selectedtag__button");
   element.setAttribute("type", "button");
+  element.setAttribute("data-category", category);
   element.textContent = tagname;
   return element;
 }
 
 //is called after each tag modification : hide the section if there is no selected tag.
 function selectedTagSectionVisibility() {
-  const nbElements = wrapperSelectedTag.getElementsByClassName("tag__button");
+  const nbElements = selectedTags.getElementsByClassName("selectedtag__button");
   if (nbElements.length > 0) {
-    wrapperSelectedTag.parentNode.classList.toggle("hidden", false);
+    selectedTags.classList.toggle("hidden", false);
   } else {
-    wrapperSelectedTag.parentNode.classList.toggle("hidden", true);
+    selectedTags.classList.toggle("hidden", true);
   }
 }
 
@@ -39,18 +41,30 @@ export let tagTestFunction = function (data, input) {
 //----------------------------------- Export(s) ----------------------------------------------
 //--------------------------------------------------------------------------------------------
 
-export function tagSelection(tagname, list) {
-  let element = createSelectedTagElement(tagname, list.category);
-  wrapperSelectedTag.append(element);
+export function tagSelection(tagname, category) {
+  let element = createSelectedTagElement(tagname, category);
+  selectedTags.querySelector(".selectedtag__wrapper").append(element);
+  /*let list;
+    switch (category) {
+      case "ingredients":
+        list = listIngredients;
+        break;
+      case "appliances":
+        list = listAppliances;
+        break;
+      case "ustensils":
+        list = listUstensils;
+        break;
+    }*/
   //update recipes
   //update list
-  list.updateList(tagTestFunction, tagname, "shown");
+  searchedInputsUpdating();
   selectedTagSectionVisibility();
   element.addEventListener("click", function () {
     element.remove();
     //update list
-    list.updateList(tagTestFunction, tagname, "hidden");
     //update element
+    searchedInputsUpdating();
     selectedTagSectionVisibility();
   });
 }

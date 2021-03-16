@@ -28,13 +28,17 @@ export class DualLinkedList {
     this.hidden = { head: null };
     this.category = category;
   }
-  updateList(testFunction, input, list) {
+  updateList(testFunction, mode, category="all") {
+    const list = mode === "moreStrict" || "tooDifferent" ? "shown" : mode === "lessStrict" ? "hidden" : "errorMode"
+    if (mode === "tooDifferent") {
+      this.concatenate();
+    }
+    const oppositeList = list === "shown" ? "hidden" : "shown";
+    const displayToggle = list === "shown" ? true : false;
     let node = this[list].head;
     let previousNode = null;
-    const oppositeList = list === "shown" ? "hidden" : list === "hidden" ? "shown" : "errorList";
-    const displayToggle = list === "shown" ? true : list === "hidden" ? false : "errorList";
     while (node) {
-      if (testFunction(node.data, input)) {
+      if (testFunction(node.data, category)) {
         //item matches the parameter, so it has to be moved to the opposite list and deleted from this one, plus the display status has to be updated
         this.insertAtBeginning(oppositeList, node.data);
         if (previousNode) {
@@ -45,12 +49,18 @@ export class DualLinkedList {
           this[list].head = this[list].head.next;
         }
         //finally the class hidden is add or remove depending on the list being browsed, only for tags
+        console.log(`${this.category}-${node.data}`)
         const nodeElement = document.getElementById(`${this.category}-${node.data}`);
         nodeElement.classList.toggle("hidden", displayToggle);
       } else {
         //previous node changed only if the node is kept
         previousNode = node;
-      }
+        // as the lists were concatened, this element was in .hidden and moved to .shown without changing the visibility state
+        if (mode === "tooDifferent") {
+          const nodeElement = document.getElementById(`${this.category}-${node.data}`);
+          nodeElement.classList.toggle("hidden", false);
+        }
+      } 
       //go to next node whatever the case
       node = node.next;
     }
