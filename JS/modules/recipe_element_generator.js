@@ -31,7 +31,7 @@
 export function recipeElementGenerator(recipe) {
   let element = document.createElement("div");
   element.classList.add("recipe__wrapper", "col-4");
-  element.setAttribute("id", `recipe-id-${recipe.id}`);
+  element.setAttribute("id", `recipes-${recipe.id}`);
   let elementStringHTML = `
     <a class="recipe card" href="recipe-proto.html">
         <img class="recipe__img card-img-top" src="public/img/recipe-pic.jpg" alt="photo de présentation de la recette" />

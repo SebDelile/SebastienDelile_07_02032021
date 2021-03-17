@@ -30,12 +30,6 @@ function selectedTagSectionVisibility() {
   }
 }
 
-//this one is ok for the tag, but it need to be changed for the recipe
-//something like : return searchAlgo(searchableTable[data], input) //data being the recipe's id
-export let tagTestFunction = function (data, input) {
-  return data === input;
-  //!!!! a modifier surement
-};
 
 //--------------------------------------------------------------------------------------------
 //----------------------------------- Export(s) ----------------------------------------------
@@ -44,27 +38,11 @@ export let tagTestFunction = function (data, input) {
 export function tagSelection(tagname, category) {
   let element = createSelectedTagElement(tagname, category);
   selectedTags.querySelector(".selectedtag__wrapper").append(element);
-  /*let list;
-    switch (category) {
-      case "ingredients":
-        list = listIngredients;
-        break;
-      case "appliances":
-        list = listAppliances;
-        break;
-      case "ustensils":
-        list = listUstensils;
-        break;
-    }*/
-  //update recipes
-  //update list
-  searchedInputsUpdating();
+  searchedInputsUpdating(category, "add", tagname);
   selectedTagSectionVisibility();
   element.addEventListener("click", function () {
     element.remove();
-    //update list
-    //update element
-    searchedInputsUpdating();
+    searchedInputsUpdating(category, "remove", tagname);
     selectedTagSectionVisibility();
   });
 }

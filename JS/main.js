@@ -25,6 +25,7 @@ const inputAppliances = document.querySelector(".searchedtag__input[data-categor
 const inputUstensils = document.querySelector(".searchedtag__input[data-category='ustensils']");
 const wrapperSearchedTag = document.getElementsByClassName("searchedtag__wrapper");
 export const selectedTags = document.querySelector(".selectedtag");
+export const searchedTagItems = document.getElementsByClassName(".searchedtag__list__item");
 const searchedTagButtons = document.getElementsByClassName("searchedtag__list__button");
 
 //--------------------------------------------------------------------------------------------
@@ -41,6 +42,7 @@ export let listUstensils = new DualLinkedList("ustensils");
 export const searchableTable = [["index0"]];
 //the table containig all the constraint to filter
 export let searchedInputs = { mainSearch: [], ingredients: [], appliances: [], ustensils: [] };
+export const tagsCategories = ["ingredients", "appliances", "ustensils"];
 
 //--------------------------------------------------------------------------------------------
 //--------------------------------- Data loading ------------------------------------------
