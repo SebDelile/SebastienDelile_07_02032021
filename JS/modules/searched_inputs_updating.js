@@ -2,16 +2,14 @@
 //----------------------------------- imports(s) ----------------------------------------------
 //--------------------------------------------------------------------------------------------
 
-import { searchedInputs, mainSearchInput, listRecipes, listIngredients, listAppliances, listUstensils } from "../main.js";
+import { searchedInputs, listRecipes, tagsTable, } from "../main.js";
 import { norm } from "./utils.js";
 import { searchAlgoritm } from "./search_algoritm.js";
-import { searchTag } from "./search_tag.js";
 
 //--------------------------------------------------------------------------------------------
 //----------------------------- Intermediate stage(s) ----------------------------------------
 //--------------------------------------------------------------------------------------------
 
-//template : searchedInputs = { mainSearch: [], ingredients: [], appliances: [], ustensils: [] }
 
 //--------------------------------------------------------------------------------------------
 //----------------------------------- Export(s) ----------------------------------------------
@@ -43,27 +41,27 @@ export function searchedInputsUpdating(category, type, value) {
     previousInputs.filter((el) => !duplicates.includes(el));
     actualInputs.filter((el) => !duplicates.includes(el));
     //they are lot of cases that can be discriminated based on the array's length
-    const criterion = [previousIputs.length, actualInputs.length];
-    switch (criterion) {
-      case [0, 0]:
-        //if both arrays are empty : nothing significally changes (maybe a space input or something that kind). Do nothing
+    const condition = `${previousInputs.length}_${actualInputs.length}`;
+    switch (condition) {
+      case "0_0":
+        //if both arrays are empty : nothing has significally changed (maybe a space input or something that kind). Does nothing
         return;
-      case [0, 1]:
-        //all previous words are kept, only a new one is added, need to search for this word only
+      case "0_1":
+        //all previous words are kept, only a new one is added, needs to search for this word only
         mode = "moreStrict";
         sligthCriterion = actualInputs[0];
         break;
-      case [1, 0]:
-        //a word was deleted, need to search with all remaining criteria
+      case "1_0":
+        //a word was deleted, needs to search with all remaining criteria
         mode = "lessStrict";
         break;
-      case [1, 1]:
+      case "1_1":
         //a word was modified
-        if (actualInput[0].includes(previousInput[0])) {
+        if (actualInputs[0].includes(previousInputs[0])) {
           // a char was added to the word, need to search for this word only
           mode = "moreStrict";
           sligthCriterion = actualInputs[0];
-        } else if (actualInput[0].includes(previousInput[0])) {
+        } else if (actualInputs[0].includes(previousInputs[0])) {
           //a char was removed to the word, need to search with all remaining criteria
           mode = "lessStrict";
         } else {
@@ -71,13 +69,9 @@ export function searchedInputsUpdating(category, type, value) {
           mode = "tooDifferent";
         }
         break;
-      case [1, 2]:
-        //one word was cut in two
-      case [2, 1]:
-        //two words were grouped as one
       default:
-        //can occur when several char are selected and deleted at once, or a copy/paste several char at once.
-        //these cases can't be easily treated so it needs to restart filter from scratch
+        //can occur when one word is cut in two, or two words are grouped as one, or several char are selected and deleted at once, or a copy/paste adds several char at once.
+        //all these cases can't be easily treated so it needs to restart filter from scratch
         mode = "tooDifferent";
     }
   } else {
@@ -86,17 +80,17 @@ export function searchedInputsUpdating(category, type, value) {
       case "add":
         //undisplayed elements cannot match this stricter criterion, but displayed element could not match it
         mode = "moreStrict";
+        searchedInputs[category].push(value);
         sligthCriterion = value;
         break;
       case "remove":
-        //all of displayed element match this less strict criterion, but some of undisplayed element could now match it
+        //all of displayed element match this less strict criterion, but some of undisplayed element could also now match it
         mode = "lessStrict";
+        searchedInputs[category].splice(searchedInputs[category].indexOf(value), 1);
         break;
-      default:
-      //error
     }
   }
-  //updates the recipe list an then the tags lists (including updating of the visibility of elements)
+  //updates the recipe list and then the tags lists (including updating of the visibility of elements)
   switch (mode) {
     case "moreStrict":
       listRecipes.updateList(searchAlgoritm, mode, category, sligthCriterion);
@@ -107,9 +101,6 @@ export function searchedInputsUpdating(category, type, value) {
     case "tooDifferent":
       listRecipes.updateList(searchAlgoritm, mode, "all");
       break;
-    default:
   }
-  listIngredients.updateList(searchTag, mode, "ingredients");
-  listAppliances.updateList(searchTag, mode, "appliances");
-  listUstensils.updateList(searchTag, mode, "ustensils");
+  listRecipes.updateTags();
 }

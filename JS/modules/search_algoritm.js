@@ -18,22 +18,27 @@ import { searchableTable, tagsCategories } from "../main.js";
 //it returns true if there is a match, and false if there is no match
 export function searchAlgoritm(recipeId, searchIn, criteria) {
   const recipeData = searchableTable[recipeId];
+  //console.log(searchIn)
   if (searchIn === "all") {
     // criteria is searchInputs (ie. all mainSearch entries + all selected tags) and all inputs have to match the recipes info
     //first : the tag (should be quicker)
-    tagsCategories.forEach(function(category) {
+    for (let category of tagsCategories) {
       for (let item of criteria[category]) {
         if (!recipeData[category].includes(item)) {
           return false;
         }
       }
-    })
+    }
     //second : the mainSearch inputs
     for (let word of criteria.mainSearch) {
+      let match = false;
       for (let key in recipeData.mainSearch) {
-        if (!recipeData.mainSearch[key].includes(word)) {
-          return false;
+        if (recipeData.mainSearch[key].includes(word)) {
+          match = true;
         }
+      }
+      if (!match) {
+        return false;
       }
     }
   } else {
@@ -47,12 +52,13 @@ export function searchAlgoritm(recipeId, searchIn, criteria) {
         }
         break;
       case "mainSearch":
+        let match = false;
         for (let key in recipeData.mainSearch) {
-          if (!recipeData.mainSearch[key].includes(criteria)) {
-            return false;
+          if (recipeData.mainSearch[key].includes(criteria)) {
+            match = true;
           }
         }
-        break;
+        return match
     }
   }
   //there was no false earlier : it's a full match !

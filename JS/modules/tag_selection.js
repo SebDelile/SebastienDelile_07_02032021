@@ -40,6 +40,7 @@ export function tagSelection(tagname, category) {
   selectedTags.querySelector(".selectedtag__wrapper").append(element);
   searchedInputsUpdating(category, "add", tagname);
   selectedTagSectionVisibility();
+  //add eventlistener to remove the tag on click
   element.addEventListener("click", function () {
     element.remove();
     searchedInputsUpdating(category, "remove", tagname);

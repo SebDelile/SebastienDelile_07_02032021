@@ -1,8 +1,9 @@
 //--------------------------------------------------------------------------------------------
-//----------------------------------- imports(s) ----------------------------------------------
+//----------------------------------- imports(s) ---------------------------------------------
 //--------------------------------------------------------------------------------------------
-import { searchableTable, searchedInputs, tagsCategories } from "../main.js";
-import { TagsTable } from "./tags_table.js";
+
+import { searchableTable, searchedInputs, tagsCategories, tagsTable } from "../main.js";
+
 //--------------------------------------------------------------------------------------------
 //----------------------------- Intermediate stage(s) ----------------------------------------
 //--------------------------------------------------------------------------------------------
@@ -25,13 +26,19 @@ export class ListNode {
 //list to contain recipe's id or tags
 export class DualLinkedList {
   constructor(category) {
-    this.shown = { head: null, lenght = 0};
-    this.hidden = { head: null, lenght = 0};
+    this.shown = {
+      head: null,
+      length: 0,
+    };
+    this.hidden = {
+      head: null,
+      length: 0,
+    };
     this.category = category;
   }
   updateList(testFunction, mode, searchIn, criteria = searchedInputs) {
     //takes the parameters to set some useful variables
-    const list = mode === "moreStrict" || "tooDifferent" ? "shown" : mode === "lessStrict" ? "hidden" : "errorMode";
+    const list = mode === "moreStrict" || mode === "tooDifferent" ? "shown" : mode === "lessStrict" ? "hidden" : "errorMode";
     if (mode === "tooDifferent") {
       this.concatenate(); // restart from scratch
     }
@@ -39,6 +46,7 @@ export class DualLinkedList {
     const displayToggle = list === "shown" ? true : false; // true means undisplay (add the css class .hidden)
     let node = this[list].head;
     let previousNode = null;
+    
     //for every node of the list
     while (node) {
       let condition = testFunction(node.data, searchIn, criteria);
@@ -47,7 +55,7 @@ export class DualLinkedList {
       if (condition) {
         //item matches the parameter, so it has to be moved to the opposite list and deleted from this one, plus the display status has to be updated
         this.insertAtBeginning(oppositeList, node.data);
-        this[list].length --;
+        this[list].length--;
         if (previousNode) {
           //usual case, links the previous node to the next node, so the actual node is deleted from the list
           previousNode.deleteNextNode();
@@ -75,7 +83,7 @@ export class DualLinkedList {
     let newNode = new ListNode(data);
     newNode.next = this[list].head;
     this[list].head = newNode;
-    this[list].length ++
+    this[list].length++;
   }
   concatenate() {
     //if not empty, put hiddenList at the begining of the shownList
@@ -91,32 +99,23 @@ export class DualLinkedList {
       hiddenTail.next = this.shown.head;
       this.shown.head = this.hidden.head;
       this.hidden.head = null;
+      this.shown.length += this.hidden.length;
+      this.hidden.length = 0;
     }
   }
-  updateTags(){
+  updateTags() {
     let list = this.shown.length <= this.hidden.length ? "shown" : "hidden";
-    //let operator = this.shown.length <= this.hidden.length ? testHideTag : testShowTag;
     let node = this[list].head;
+    tagsTable.beginTest(list)
     //for every node of the list
     while (node) {
       for (let category of tagsCategories) {
         for (let tag of searchableTable[node.data][category]) {
-          tagsTable[category].testShowTag(tag)
+          tagsTable[category].testTag(tag, list);
         }
       }
+      node = node.next;
     }
-  }
-  includesData(list, data) {
-    //browes the list and returns true if the data is found in the list, false otherwise
-    let node = this[list].head;
-    while (node) {
-      if (node.data === data) {
-        return true;
-      } else {
-        node = node.next;
-      }
-    }
-    return false;
   }
   //used for tests
   print(list) {
