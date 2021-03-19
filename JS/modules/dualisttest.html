@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Les petits plats</title>
+  </head>
+
+  <body>
+    <input type="text" id="input" />
+    <button type="button" id="filter">filter</button>
+    <button type="button" id="unfilter">unfilter</button>
+    <button type="button" id="reset">reset</button>
+    <div>------------------------------------</div>
+    <div>-------------shown---------------</div>
+    <div>------------------------------------</div>
+    <div id="div-shown"></div>
+    <div>------------------------------------</div>
+    <div>-------------hidden---------------</div>
+    <div>------------------------------------</div>
+    <div id="div-hidden"></div>
+
+
+    
+    <script type="module">
+      import {ListNode, DualLinkedList, testFunction} from "./dual_linked_list.js"
+
+      let list = new DualLinkedList();
+      ["toto", "tata", "toto", "tete", "tutu", "tata", "titi", "titi"].forEach((data) => list.insertAtBeginning("shown", data));
+
+      console.log(list);
+
+      const input = document.getElementById("input");
+      const filter = document.getElementById("filter");
+      const unfilter = document.getElementById("unfilter");
+      const reset = document.getElementById("reset");
+      const divHidden = document.getElementById("div-hidden");
+      const divShown = document.getElementById("div-shown");
+
+      divShown.textContent = list.print("shown");
+      divHidden.textContent = list.print("hidden");
+
+      filter.addEventListener("click", function () {
+        list.updateList(testFunction, input.value, "shown");
+        divShown.textContent = list.print("shown");
+        divHidden.textContent = list.print("hidden");
+      });
+      unfilter.addEventListener("click", function () {
+        list.updateList(testFunction, input.value, "hidden");
+        divShown.textContent = list.print("shown");
+        divHidden.textContent = list.print("hidden");
+      });
+      reset.addEventListener("click", function () {
+        list.concatenate();
+        divShown.textContent = list.print("shown");
+        divHidden.textContent = list.print("hidden");
+        input.value = "";
+      });
+    </script>
+  </body>
+</html>

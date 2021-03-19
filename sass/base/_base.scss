@@ -1,0 +1,49 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+body {
+  box-sizing: border-box;
+}
+
+input {
+  border: none;
+  border-radius: 5px;
+  &:focus,
+  &:hover {
+    outline: none;
+  }
+}
+
+button {
+  border: none;
+  border-radius: 5px;
+  color: inherit;
+  background-color: inherit;
+  &:focus,
+  &:hover {
+    outline: none;
+  }
+}
+
+[data-category="ingredients"] {
+    background-color: $color-ingredients;
+    color: white;
+  }
+[data-category="ustensils"] {
+    background-color: $color-ustensils;
+    color: white;
+  }
+[data-category="appliances"] {
+    background-color: $color-appliances;
+    color: white;
+  }
+
+
+.hidden {
+  display:none;
+}

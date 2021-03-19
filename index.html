@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" href="/public/css/style.css" />
+    <title>Les petits plats</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <header class="header row">
+        <div class="header__logo__wrapper col">
+          <h1 class="sr-only">Mes petits Plats</h1>
+          <img class="header__logo" src="public/img/logo.svg" alt="logo Mes petits plats" />
+        </div>
+      </header>
+      <section class="mainsearch row">
+        <h2 class="sr-only">Recherche par mots clefs</h2>
+        <div class="mainsearch__input__wrapper col">
+          <input type="text" class="mainsearch__input" placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette" />
+          <img class="mainsearch__icon" src="public/img/icons/search.svg" alt="loupe" aria-hidden="true" />
+        </div>
+      </section>
+      <section class="selectedtag hidden row">
+        <h2 class="sr-only">Tags sélectionnés</h2>
+        <div class="selectedtag__wrapper col"></div>
+      </section>
+      <section class="searchedtag row" tabindex="-1">
+        <h2 class="sr-only">Recherche par tags</h2>
+        <div class="searchedtag__wrapper col">
+          <input type="text" class="searchedtag__input" data-category="ingredients" placeholder="Ingrédients" />
+          <img class="searchedtag__icon" src="public/img/icons/menu.svg" alt="icon-menu" aria-hidden="true" />
+          <ul class="searchedtag__list" data-category="ingredients">
+            <li class="searchedtag__list__message hidden">Aucune correspondance</li>
+          </ul>
+        </div>
+        <div class="searchedtag__wrapper col">
+          <input type="text" class="searchedtag__input" data-category="appliances" placeholder="Appareils" />
+          <img class="searchedtag__icon" src="public/img/icons/menu.svg" alt="icon-menu" aria-hidden="true" />
+          <ul class="searchedtag__list" data-category="appliances">
+            <li class="searchedtag__list__message hidden">Aucune correspondance</li>
+          </ul>
+        </div>
+        <div class="searchedtag__wrapper col">
+          <input type="text" class="searchedtag__input" data-category="ustensils" placeholder="Ustensiles" />
+          <img class="searchedtag__icon" src="public/img/icons/menu.svg" alt="icon-menu" aria-hidden="true" />
+          <ul class="searchedtag__list" data-category="ustensils">
+            <li class="searchedtag__list__message hidden">Aucune correspondance</li>
+          </ul>
+        </div>
+      </section>
+      <section class="recipe__grid row">
+        <h2 class="sr-only col12">Liste des recettes</h2>
+        <p class="recipe__grid__message hidden">Aucune recette ne correspond à votre critère... Vous pouvez chercher « tarte aux pommes », « poisson », etc</p>
+        <!--Dynamic code generated here-->
+      </section>
+    </div>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="./JS/main.js"></script>
+  </body>
+</html>
