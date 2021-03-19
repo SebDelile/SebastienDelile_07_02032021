@@ -4,6 +4,9 @@
   border: none;
   @include link-nostyle;
   &__grid {
+    &__message {
+      padding-left : 15px;
+    }
   }
   &__wrapper {
     margin-bottom: 30px;

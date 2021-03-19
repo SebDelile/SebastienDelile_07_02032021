@@ -32,26 +32,33 @@
         <h2 class="sr-only">Tags sélectionnés</h2>
         <div class="selectedtag__wrapper col"></div>
       </section>
-      <section class="searchedtag row">
+      <section class="searchedtag row" tabindex="-1">
         <h2 class="sr-only">Recherche par tags</h2>
         <div class="searchedtag__wrapper col">
           <input type="text" class="searchedtag__input" data-category="ingredients" placeholder="Ingrédients" />
           <img class="searchedtag__icon" src="public/img/icons/menu.svg" alt="icon-menu" aria-hidden="true" />
-          <ul class="searchedtag__list" data-category="ingredients"></ul>
+          <ul class="searchedtag__list" data-category="ingredients">
+            <li class="searchedtag__list__message hidden">Aucune correspondance</li>
+          </ul>
         </div>
         <div class="searchedtag__wrapper col">
           <input type="text" class="searchedtag__input" data-category="appliances" placeholder="Appareils" />
           <img class="searchedtag__icon" src="public/img/icons/menu.svg" alt="icon-menu" aria-hidden="true" />
-          <ul class="searchedtag__list" data-category="appliances"></ul>
+          <ul class="searchedtag__list" data-category="appliances">
+            <li class="searchedtag__list__message hidden">Aucune correspondance</li>
+          </ul>
         </div>
         <div class="searchedtag__wrapper col">
           <input type="text" class="searchedtag__input" data-category="ustensils" placeholder="Ustensiles" />
           <img class="searchedtag__icon" src="public/img/icons/menu.svg" alt="icon-menu" aria-hidden="true" />
-          <ul class="searchedtag__list" data-category="ustensils"></ul>
+          <ul class="searchedtag__list" data-category="ustensils">
+            <li class="searchedtag__list__message hidden">Aucune correspondance</li>
+          </ul>
         </div>
       </section>
       <section class="recipe__grid row">
         <h2 class="sr-only col12">Liste des recettes</h2>
+        <p class="recipe__grid__message hidden">Aucune recette ne correspond à votre critère... Vous pouvez chercher « tarte aux pommes », « poisson », etc</p>
         <!--Dynamic code generated here-->
       </section>
     </div>

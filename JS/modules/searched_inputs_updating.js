@@ -2,14 +2,23 @@
 //----------------------------------- imports(s) ----------------------------------------------
 //--------------------------------------------------------------------------------------------
 
-import { searchedInputs, listRecipes, tagsTable, } from "../main.js";
+import { searchedInputs, listRecipes, gridRecipes } from "../main.js";
 import { norm } from "./utils.js";
 import { searchAlgoritm } from "./search_algoritm.js";
+import {tagsUpdatingReset} from "./tags_updating.js"
 
 //--------------------------------------------------------------------------------------------
 //----------------------------- Intermediate stage(s) ----------------------------------------
 //--------------------------------------------------------------------------------------------
 
+function noResultMessage () {
+  const message = document.querySelector(".recipe__grid__message")
+  if (listRecipes.shown.length === 0) {
+    message.classList.toggle("hidden", false)
+  } else {
+    message.classList.toggle("hidden", true)
+  }
+}
 
 //--------------------------------------------------------------------------------------------
 //----------------------------------- Export(s) ----------------------------------------------
@@ -17,6 +26,8 @@ import { searchAlgoritm } from "./search_algoritm.js";
 
 //takes the selected constraints and updates the object passed as input for the search function
 export function searchedInputsUpdating(category, type, value) {
+  //clear tag input fields and initiates variables
+  tagsUpdatingReset()
   let mode = "";
   let sligthCriterion = "";
   if (category === "mainSearch") {
@@ -24,7 +35,7 @@ export function searchedInputsUpdating(category, type, value) {
     const previousInputs = searchedInputs.mainSearch;
     if (value.length >= 3) {
       searchedInputs.mainSearch = norm(value)
-        .split(" ")
+        .split("_")
         .filter((el) => el !== "");
     } else {
       searchedInputs.mainSearch = [];
@@ -102,5 +113,6 @@ export function searchedInputsUpdating(category, type, value) {
       listRecipes.updateList(searchAlgoritm, mode, "all");
       break;
   }
+  noResultMessage();
   listRecipes.updateTags();
 }

@@ -2,6 +2,7 @@
 @import "./utils/functions";
 @import "./utils/mixins";
 @import "./utils/extensions";
+@import "./utils/keyframes";
 
 @import "./base/base";
 @import "./base/typography";
@@ -12,8 +13,8 @@
 @import "./layout/container";
 @import "./layout/recipe";
 @import "./layout/search";
-@import "./layout/tag";
-@import "./layout/tagsearch";
+@import "./layout/selectedtag";
+@import "./layout/searchedtag";
 
 
 @import "./pages/index";

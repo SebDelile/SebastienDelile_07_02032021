@@ -1,4 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
+@keyframes invalid-tag {
+  25% {
+    padding-left: 1rem;
+  }
+  75% {
+    padding-left: 1.25rem;
+  }
+}
 *,
 *::after,
 *::before {
@@ -70,6 +78,9 @@ body {
 .recipe:hover {
   color: inherit;
   text-decoration: inherit;
+}
+.recipe__grid__message {
+  padding-left: 15px;
 }
 .recipe__wrapper {
   margin-bottom: 30px;
@@ -177,6 +188,9 @@ body {
   justify-content: flex-start;
   flex-wrap: nowrap;
 }
+.searchedtag:focus {
+  outline: none;
+}
 .searchedtag__wrapper {
   flex: 0 1 0;
   position: relative;
@@ -201,6 +215,9 @@ body {
 .searchedtag__input:focus + .searchedtag__icon {
   transform: translateY(-50%) rotateX(180deg);
 }
+.searchedtag__input:invalid {
+  animation: invalid-tag 0.1s 4 both;
+}
 .searchedtag__icon {
   height: auto;
   width: 1rem;
@@ -218,6 +235,7 @@ body {
   z-index: 100;
   max-height: calc(20rem + 0.5rem + 1.125rem);
   max-width: calc(3 * 13.6125rem + 2 * 0.5rem);
+  min-width: 13.6125rem;
   overflow: hidden;
   padding: 0.5rem 0.5rem 1.125rem 0.5rem;
   grid-template-rows: repeat(10, auto);
@@ -230,6 +248,9 @@ body {
   background-color: inherit;
   height: 2rem;
   width: 13.6125rem;
+}
+.searchedtag__list__item-hidden {
+  display: none;
 }
 .searchedtag__list__button {
   height: 100%;

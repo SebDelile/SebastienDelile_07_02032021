@@ -7,23 +7,24 @@ import { recipes } from "./modules/recipes_table.js";
 import { recipeElementGenerator } from "./modules/recipe_element_generator.js";
 import { searchableTableFilling } from "./modules/searchable_table_filling.js";
 //import { searchAlgoritm } from "./modules/search_algoritm.js";
-import { tagSelection } from "./modules/tag_selection.js";
+import { tagSelectionClick, tagSelectionInput } from "./modules/tag_selection.js";
+import { tagsUpdatingAvailability, tagsUpdatingGridDisplay } from "./modules/tags_updating.js";
 import { searchedInputsUpdating } from "./modules/searched_inputs_updating.js";
 import { TagsTable } from "./modules/tags_table.js";
+import {tagKeyboardNavigation} from "./modules/tags_keybord_nav.js"
 import { norm } from "./modules/utils.js";
 
 //--------------------------------------------------------------------------------------------
 //----------------------------------- DOM elements -------------------------------------------
 //--------------------------------------------------------------------------------------------
 
-const gridRecipes = document.querySelector(".recipe__grid");
+export const gridRecipes = document.querySelector(".recipe__grid");
+const gridTags = document.getElementsByClassName("searchedtag__list");
 export const gridIngredients = document.querySelector(".searchedtag__list[data-category='ingredients']");
 export const gridAppliances = document.querySelector(".searchedtag__list[data-category='appliances']");
 export const gridUstensils = document.querySelector(".searchedtag__list[data-category='ustensils']");
 export const mainSearchInput = document.querySelector(".mainsearch__input");
-const inputIngredients = document.querySelector(".searchedtag__input[data-category='ingredients']");
-const inputAppliances = document.querySelector(".searchedtag__input[data-category='appliances']");
-const inputUstensils = document.querySelector(".searchedtag__input[data-category='ustensils']");
+export const searchedTagsInputs = document.querySelectorAll(".searchedtag__input");
 const wrapperSearchedTag = document.getElementsByClassName("searchedtag__wrapper");
 export const selectedTags = document.querySelector(".selectedtag");
 //export const searchedTagItems = document.getElementsByClassName(".searchedtag__list__item");
@@ -79,27 +80,49 @@ for (let recipe of recipes) {
 for (let wrapper of wrapperSearchedTag) {
   wrapper.addEventListener("focusin", function () {
     wrapper.querySelector(".searchedtag__list").style.display = "grid";
+    tagsUpdatingGridDisplay(wrapper.querySelector(".searchedtag__input"));
   });
   wrapper.addEventListener("focusout", function (event) {
     if (!this.contains(event.relatedTarget)) {
       wrapper.querySelector(".searchedtag__list").style.display = "none";
+      this.querySelector(".searchedtag__input").style.width = "";
     }
   });
+  //gives focus to the input when click on the icon
   wrapper.querySelector(".searchedtag__icon").addEventListener("click", function (event) {
     event.target.parentNode.querySelector(".searchedtag__input").focus();
+  });
+}
+
+for (let grid of gridTags) {
+  grid.addEventListener("focusin", function () {
+    tagKeyboardNavigation(grid);
+  });
+}
+
+for (let searchedTagsInput of searchedTagsInputs) {
+  searchedTagsInput.addEventListener("input", function (event) {
+    //removes the tags that do not fit the input
+    tagsUpdatingAvailability(event.target);
+    tagsUpdatingGridDisplay(event.target);
+  });
+  //on tagsearch input validation : click on tag if it exists, else displays error
+  searchedTagsInput.addEventListener("keydown", function (event) {
+    event.target.setCustomValidity("");
+    if (event.which === 13) {//press enter 
+      tagSelectionInput(event.target);
+    }
   });
 }
 
 //gives the actions to do when a tag is choosen in the list of suggestions
 for (let button of searchedTagButtons) {
   button.addEventListener("click", function (event) {
-    const tagname = norm(event.target.textContent);
-    const category = event.target.dataset.category;
-    tagSelection(tagname, category);
+    tagSelectionClick(event.target);
   });
 }
 
-//update the searchedInput
+//update the recipes lits on each mainSearch Input
 mainSearchInput.addEventListener("input", function (event) {
   searchedInputsUpdating("mainSearch", null, event.target.value);
 });
