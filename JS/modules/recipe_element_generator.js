@@ -30,7 +30,7 @@
 
 export function recipeElementGenerator(recipe) {
   let element = document.createElement("div");
-  element.classList.add("recipe__wrapper", "col-4");
+  element.classList.add("recipe__wrapper", "col-12", "col-md-6", "col-lg-4");
   element.setAttribute("id", `recipes-${recipe.id}`);
   let elementStringHTML = `
     <a class="recipe card" href="recipe-proto.html">

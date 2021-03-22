@@ -80,23 +80,23 @@ for (let recipe of recipes) {
 for (let wrapper of wrapperSearchedTag) {
   wrapper.addEventListener("focusin", function () {
     wrapper.querySelector(".searchedtag__list").style.display = "grid";
+    if (window.innerWidth >= 768 && window.innerWidth < 1200) {
+      this.style.order = 1;
+      this.classList.remove("col-md")
+    }
     tagsUpdatingGridDisplay(wrapper.querySelector(".searchedtag__input"));
   });
   wrapper.addEventListener("focusout", function (event) {
     if (!this.contains(event.relatedTarget)) {
-      wrapper.querySelector(".searchedtag__list").style.display = "none";
+      wrapper.querySelector(".searchedtag__list").style.display = "";
       this.querySelector(".searchedtag__input").style.width = "";
+      this.style.order = "";
+      this.classList.add("col-md");
     }
   });
   //gives focus to the input when click on the icon
   wrapper.querySelector(".searchedtag__icon").addEventListener("click", function (event) {
     event.target.parentNode.querySelector(".searchedtag__input").focus();
-  });
-}
-
-for (let grid of gridTags) {
-  grid.addEventListener("focusin", function () {
-    tagKeyboardNavigation(grid);
   });
 }
 
@@ -109,8 +109,12 @@ for (let searchedTagsInput of searchedTagsInputs) {
   //on tagsearch input validation : click on tag if it exists, else displays error
   searchedTagsInput.addEventListener("keydown", function (event) {
     event.target.setCustomValidity("");
-    if (event.which === 13) {//press enter 
+    if (event.which === 13) {//press enter => selects the tag 
       tagSelectionInput(event.target);
+    }
+    if (event.which === 40) { //press down arrow => enters the taglist for keyboard nav
+      event.preventDefault();
+      tagKeyboardNavigation(document.querySelector(`.searchedtag__list[data-category=${event.target.dataset.category}]`))
     }
   });
 }

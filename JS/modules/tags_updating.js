@@ -19,6 +19,8 @@ function noResultMessage (tagGrid) {
   }
 }
 
+
+
 //--------------------------------------------------------------------------------------------
 //----------------------------------- Export(s) ----------------------------------------------
 //--------------------------------------------------------------------------------------------
@@ -47,9 +49,11 @@ export function tagsUpdatingReset() {
 }}
 
 export function tagsUpdatingGridDisplay(target) {
-  const tagInput = target;
   const tagGrid = tagsCategoriesRelatedHtml[target.dataset.category];
   noResultMessage(tagGrid);
-  const tagGridWidth = parseFloat(window.getComputedStyle(tagGrid).width);
-  tagInput.style.width = `${tagGridWidth}px`;
+  console.log(window.innerWidth)
+  if (window.innerWidth >= 1200) {
+    const tagGridWidth = parseFloat(window.getComputedStyle(tagGrid).width);
+    target.style.width = `${tagGridWidth}px`;
+  }
 }

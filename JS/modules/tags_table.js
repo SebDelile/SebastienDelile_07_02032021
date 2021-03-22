@@ -54,7 +54,7 @@ export class TagsSubTable {
     let element = document.createElement("li");
     element.classList.add("searchedtag__list__item");
     element.setAttribute("id", `${category}-${norm(tag)}`);
-    element.innerHTML = `<button class="searchedtag__list__button" data-category = "${category}">${tag}</button>`;
+    element.innerHTML = `<button class="searchedtag__list__button" data-category ="${category}" tabindex=-1>${tag}</button>`;
     return element;
   }
   testTag(tag, list) {

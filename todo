@@ -1,5 +1,12 @@
-- navigation clavier dans le select des tags
+v navigation clavier dans le select des tags
 - responsive CSS
+
+searched tags :
+- order 1 pour celui actif entre 768 et 1199px : marche pas
+- width a 100% pour l'input ouvert : marche pas ni avec width ni avec col-12
+
+
+
 v message quand aucun résultat (recipe & taglist)
 - compléter la documentation JS
 - implementaion algo string + searchable table filling
