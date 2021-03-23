@@ -1,5 +1,8 @@
-- navigation clavier dans le select des tags
-- responsive CSS
+-refactor eventlistener tags search
+
+
+
+
 v message quand aucun résultat (recipe & taglist)
 - compléter la documentation JS
 - implementaion algo string + searchable table filling

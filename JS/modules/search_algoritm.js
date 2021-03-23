@@ -22,7 +22,7 @@ export function searchAlgoritm(recipeId, searchIn, criteria) {
   if (searchIn === "all") {
     // criteria is searchInputs (ie. all mainSearch entries + all selected tags) and all inputs have to match the recipes info
     //first : the tag (should be quicker)
-    for (let category of tagsCategories) {
+    for (let category in tagsCategories) {
       for (let item of criteria[category]) {
         if (!recipeData[category].includes(item)) {
           return false;

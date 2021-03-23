@@ -2,80 +2,128 @@
   &:focus {
     outline: none;
   }
-  justify-content: flex-start;
-  flex-wrap: nowrap;
+  //justify-content: flex-start;
   &__wrapper {
-    flex: 0 1 0;
+    flex: 1 0 100%;
     position: relative;
     margin-bottom: 1.5rem;
-    padding-right: 5px; //20px between components, 15px defaut padding from bootstrap
+    @media only screen and (min-width: 768px) and (max-width: 1199px) {
+      flex: 1 0 0;
+    }
+    @media only screen and (min-width: 1200px) {
+      flex: 0 1 0;
+      padding-right: 5px; //20px between components, 15px defaut padding from bootstrap
+    }
   }
   &__input {
-    width: 12.5rem;
+    width: 100%;
+    min-width: 12.5rem;
+    @media only screen and (min-width: 1200px) {
+      width: 12.5rem;
+    }
     height: 4.3125rem;
     padding: 0 2.25rem 0 1.625rem;
     font-size: 1.125rem;
     font-weight: 700;
     color: white;
+    @include boxshadow(1, 0.5);
+    &--noshadow {
+      &:focus {
+        box-shadow: unset;
+      }
+      &:hover {
+        box-shadow: unset;
+      }
+    }
     &::placeholder {
       color: white;
     }
     &:focus {
-      border-radius: 5px 5px 0 0;
-      //JS gives the same width as the list
+      //JS gives the same width as the list (large screen only)
       padding-left: 1.125rem;
-      + .searchedtag__icon {
-        transform: translateY(-50%) rotateX(180deg);
-      }
     }
     &:invalid {
-      animation : invalid-tag 0.1s 4 both;
+      animation: invalid-tag 0.1s 4 both;
     }
   }
   &__icon {
     height: auto;
     width: 1rem;
     position: absolute;
-    top: 50%;
+    top: 0;
     right: calc(1.125rem + 15px); //15px = padding from bootstrap
-    transform: translateY(-50%);
+    transform: translateY(calc(4.325rem / 2 - 50%)); //vertically aligned with input
     z-index: 10;
+    &__image {
+      width: 100%;
+    }
+    &--opened {
+      img {
+        transform: rotateX(180deg);
+      }
+    }
   }
   &__list {
     display: none;
+    &--visible {
+      display:grid;
+    }
+    list-style: none;
+    border-radius: 0 0 5px 5px;
+    overflow: hidden;
+    padding: 0.5rem 0.5rem 1.25rem 0.5rem;
     position: absolute;
     top: calc(100% - 0.5rem);
     left: 15px; //bootstrap padding
     z-index: 100;
-    max-height: calc(20rem + 0.5rem + 1.125rem); //10 element + padding top and bottom
-    max-width: calc(3 * 13.6125rem + 2 * 0.5rem); //3 buttons width + 2 paddings
-    min-width: 13.6125rem; // one item width
-    overflow: hidden;
-    padding: 0.5rem 0.5rem 1.125rem 0.5rem;
-    grid-template-rows: repeat(10, auto);
-    grid-template-columns: repeat(3, auto);
-    grid-auto-flow: column;
-    list-style: none;
-    border-radius: 0 0 5px 5px;
+    max-height: calc(30 * 2rem + 0.5rem + 1.25rem / 2); //30 element + padding top and half of bottom
+    width: calc(100% - 2 * 15px); //padding left and right from bootstrap
+    @media only screen and (min-width: 1200px) {
+      max-height: calc(10 * 2rem + 0.5rem + 1.25rem); //10 element + padding top and bottom
+      max-width: calc(3 * 13.6125rem + 2 * 0.5rem); //3 buttons width + 2 paddings
+      min-width: 13.6125rem; // one item width
+      width: unset;
+    }
+    grid-template-rows: repeat(30, auto);
+    grid-template-columns: repeat(1, 100%);
+    grid-auto-flow: row;
+    @media only screen and (min-width: 1200px) {
+      grid-template-rows: repeat(10, auto);
+      grid-template-columns: repeat(3, minmax(auto, 33.33%));
+      grid-auto-flow: column;
+    }
     &__item {
       background-color: inherit;
       height: 2rem;
-      width: 13.6125rem;
-      &-hidden { //set via JS when typing in the tag search input
-        display:none;
+      width: 100%;
+      @media only screen and (min-width: 1200px) {
+        width: 13.6125rem;
+      }
+      &--hidden {
+        //set via JS when typing in the tag search input
+        display: none;
       }
     }
     &__button {
       height: 100%;
+      width: 100%;
       padding: 0 0.75rem;
       text-align: left;
       font-size: 1.125rem;
       font-weight: 400;
       @include text-ellipsis;
-      &:hover, &:focus {
+      &:hover,
+      &:focus {
         background-color: white;
         color: black;
       }
+    }
+    &__message {
+      width: 100%;
+      height: 2rem;
+      padding: 0 0.75rem;
+      white-space: nowrap;
+      font-style: italic;
     }
   }
 }

@@ -7,11 +7,11 @@ import { recipes } from "./modules/recipes_table.js";
 import { recipeElementGenerator } from "./modules/recipe_element_generator.js";
 import { searchableTableFilling } from "./modules/searchable_table_filling.js";
 //import { searchAlgoritm } from "./modules/search_algoritm.js";
-import { tagSelectionClick, tagSelectionInput } from "./modules/tag_selection.js";
+import { tagsSelectionClick, tagsSelectionInput } from "./modules/tags_selection.js";
 import { tagsUpdatingAvailability, tagsUpdatingGridDisplay } from "./modules/tags_updating.js";
 import { searchedInputsUpdating } from "./modules/searched_inputs_updating.js";
 import { TagsTable } from "./modules/tags_table.js";
-import {tagKeyboardNavigation} from "./modules/tags_keybord_nav.js"
+import { tagKeyboardNavigation } from "./modules/tags_keybord_nav.js";
 import { norm } from "./modules/utils.js";
 
 //--------------------------------------------------------------------------------------------
@@ -19,15 +19,12 @@ import { norm } from "./modules/utils.js";
 //--------------------------------------------------------------------------------------------
 
 export const gridRecipes = document.querySelector(".recipe__grid");
-const gridTags = document.getElementsByClassName("searchedtag__list");
 export const gridIngredients = document.querySelector(".searchedtag__list[data-category='ingredients']");
 export const gridAppliances = document.querySelector(".searchedtag__list[data-category='appliances']");
 export const gridUstensils = document.querySelector(".searchedtag__list[data-category='ustensils']");
 export const mainSearchInput = document.querySelector(".mainsearch__input");
 export const searchedTagsInputs = document.querySelectorAll(".searchedtag__input");
 const wrapperSearchedTag = document.getElementsByClassName("searchedtag__wrapper");
-export const selectedTags = document.querySelector(".selectedtag");
-//export const searchedTagItems = document.getElementsByClassName(".searchedtag__list__item");
 const searchedTagButtons = document.getElementsByClassName("searchedtag__list__button");
 
 //--------------------------------------------------------------------------------------------
@@ -35,10 +32,9 @@ const searchedTagButtons = document.getElementsByClassName("searchedtag__list__b
 //--------------------------------------------------------------------------------------------
 
 //the tags categories (used to loop on these)
-export const tagsCategories = ["ingredients", "appliances", "ustensils"];
-export const tagsCategoriesRelatedHtml = { ingredients: gridIngredients, appliances: gridAppliances, ustensils: gridUstensils };
+export const tagsCategories = { ingredients: gridIngredients, appliances: gridAppliances, ustensils: gridUstensils };
 
-//the dualList and table used as intermediate stage for actualization during filtering
+//the dualList and the table used as intermediate stages for actualization during filtering
 export let listRecipes = new DualLinkedList("recipes");
 export let tagsTable = new TagsTable();
 tagsTable.addSubTable("ingredients");
@@ -47,7 +43,7 @@ tagsTable.addSubTable("ustensils");
 
 //the table to be search in during the filtering processes (both recipe and tags)
 export const searchableTable = [["index0"]];
-//the table containig all the constraint to filter
+//the table containig all the criteria to filter
 export let searchedInputs = { mainSearch: [], ingredients: [], appliances: [], ustensils: [] };
 
 //--------------------------------------------------------------------------------------------
@@ -76,53 +72,68 @@ for (let recipe of recipes) {
 //--------------------------------- Event listeners ------------------------------------------
 //--------------------------------------------------------------------------------------------
 
-//manages the opening/closing of the tags search suggestions : focus in the wrapper or click on the icon
 for (let wrapper of wrapperSearchedTag) {
-  wrapper.addEventListener("focusin", function () {
-    wrapper.querySelector(".searchedtag__list").style.display = "grid";
-    tagsUpdatingGridDisplay(wrapper.querySelector(".searchedtag__input"));
+  const icon = wrapper.querySelector(".searchedtag__icon");
+  const grid = wrapper.querySelector(".searchedtag__list");
+  const input = wrapper.querySelector(".searchedtag__input");
+
+  //on focus on input : opens the tags grid
+  input.addEventListener("focus", function () {
+    tagsUpdatingGridDisplay(true, input, icon, grid);
+    input.classList.toggle("searchedtag__input--noshadow", true);
   });
+
+  // each input on input resets the error status and updates the available tags
+  input.addEventListener("input", function (event) {
+    input.setCustomValidity("");
+    tagsUpdatingAvailability(input);
+    tagsUpdatingGridDisplay(true, input, icon, grid);
+  });
+
+  //manages the keyboard actions on the input (ESC, ENTER, ↓)
+  input.addEventListener("keydown", function (event) {
+    if (event.which === 40) {
+      //down arrow ↓
+      event.preventDefault();
+      tagsUpdatingGridDisplay(true, input, icon, grid);
+      tagKeyboardNavigation(grid);
+    } else if (event.which === 27) {
+      //press ESC => close the list of tags suggestion
+      event.preventDefault();
+      tagsUpdatingGridDisplay(false, input, icon, grid);
+    } else if (event.which === 13) {
+      //press ENTER => check the input and selects the corresponding tag (if it exists)
+      tagsSelectionInput(input);
+    }
+  });
+
+  //gives the focus to the input and toggle the grid display status
+  icon.addEventListener("click", function () {
+    if (icon.classList.contains("searchedtag__icon--opened")) {
+      input.focus();
+      tagsUpdatingGridDisplay(false, input, icon, grid);
+    } else {
+      input.focus(); // it will open the grid
+    }
+  });
+
+  //if the container looses the focus : closes the grid
   wrapper.addEventListener("focusout", function (event) {
     if (!this.contains(event.relatedTarget)) {
-      wrapper.querySelector(".searchedtag__list").style.display = "none";
-      this.querySelector(".searchedtag__input").style.width = "";
-    }
-  });
-  //gives focus to the input when click on the icon
-  wrapper.querySelector(".searchedtag__icon").addEventListener("click", function (event) {
-    event.target.parentNode.querySelector(".searchedtag__input").focus();
-  });
-}
-
-for (let grid of gridTags) {
-  grid.addEventListener("focusin", function () {
-    tagKeyboardNavigation(grid);
-  });
-}
-
-for (let searchedTagsInput of searchedTagsInputs) {
-  searchedTagsInput.addEventListener("input", function (event) {
-    //removes the tags that do not fit the input
-    tagsUpdatingAvailability(event.target);
-    tagsUpdatingGridDisplay(event.target);
-  });
-  //on tagsearch input validation : click on tag if it exists, else displays error
-  searchedTagsInput.addEventListener("keydown", function (event) {
-    event.target.setCustomValidity("");
-    if (event.which === 13) {//press enter 
-      tagSelectionInput(event.target);
+      tagsUpdatingGridDisplay(false, input, icon, grid);
+      input.classList.toggle("searchedtag__input--noshadow", false);
     }
   });
 }
 
-//gives the actions to do when a tag is choosen in the list of suggestions
+//manages the action to do with the searched tags buttons
 for (let button of searchedTagButtons) {
   button.addEventListener("click", function (event) {
-    tagSelectionClick(event.target);
+    tagsSelectionClick(event.target);
   });
 }
 
-//update the recipes lits on each mainSearch Input
+//update the displayed recipes on each mainSearch Input
 mainSearchInput.addEventListener("input", function (event) {
   searchedInputsUpdating("mainSearch", null, event.target.value);
 });

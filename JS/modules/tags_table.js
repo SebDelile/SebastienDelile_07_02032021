@@ -2,7 +2,7 @@
 //----------------------------------- imports(s) ----------------------------------------------
 //--------------------------------------------------------------------------------------------
 
-import { tagsCategoriesRelatedHtml } from "../main.js";
+import { tagsCategories } from "../main.js";
 import {norm} from "./utils.js"
 
 //--------------------------------------------------------------------------------------------
@@ -39,7 +39,7 @@ export class TagsSubTable {
     this.sum = {};
     this.test = {};
     this.category = category;
-    this.relatedGrid = tagsCategoriesRelatedHtml[category];
+    this.relatedGrid = tagsCategories[category];
   }
   importTag(tag) {
     //to initiate the table
@@ -54,7 +54,7 @@ export class TagsSubTable {
     let element = document.createElement("li");
     element.classList.add("searchedtag__list__item");
     element.setAttribute("id", `${category}-${norm(tag)}`);
-    element.innerHTML = `<button class="searchedtag__list__button" data-category = "${category}">${tag}</button>`;
+    element.innerHTML = `<button class="searchedtag__list__button" data-category ="${category}" tabindex=-1>${tag}</button>`;
     return element;
   }
   testTag(tag, list) {
