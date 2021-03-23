@@ -35,7 +35,7 @@ let keyLog = function (e) {
       //down arrow
       newPosition++;
       if (newPosition > lastElement) {
-        focusableElementsArray[0].focus();
+        newPosition = 0;
       }
     } else if (e.which === 37 && lastElement >= 10) {
       //left arrow (only if more than 10 elements)
@@ -69,9 +69,6 @@ let keyLog = function (e) {
 //------------------------------------ variables ---------------------------------------------
 //--------------------------------------------------------------------------------------------
 
-//is the list of the elements that should receive focus in the modal
-const focusableElementsTemplate = ["[href]", "button:not([disabled])", "input:not([disabled])", "select:not([disabled])", "textarea:not([disabled])", '[tabindex]:not([tabindex="-1"])'];
-
 //is the list of the element in the grid that matches the template
 let focusableElementsArray = [];
 
@@ -81,7 +78,7 @@ let focusableElementsArray = [];
 
 //collect all focusable elements and gives focus to first one
 export function tagKeyboardNavigation(tagGrid) {
-  const focusableElements = tagGrid.querySelectorAll(focusableElementsTemplate);
+  const focusableElements = tagGrid.querySelectorAll(".searchedtag__list__item:not(.hidden):not(.searchedtag__list__item--hidden) .searchedtag__list__button");
   focusableElementsArray = [];
   for (let focusableElement of focusableElements) {
     focusableElementsArray.push(focusableElement);

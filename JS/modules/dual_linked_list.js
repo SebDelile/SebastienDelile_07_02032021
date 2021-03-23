@@ -109,7 +109,7 @@ export class DualLinkedList {
     tagsTable.beginTest(list)
     //for every node of the list
     while (node) {
-      for (let category of tagsCategories) {
+      for (let category in tagsCategories) {
         for (let tag of searchableTable[node.data][category]) {
           tagsTable[category].testTag(tag, list);
         }

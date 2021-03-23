@@ -1,9 +1,5 @@
-v navigation clavier dans le select des tags
-- responsive CSS
+-refactor eventlistener tags search
 
-searched tags :
-- order 1 pour celui actif entre 768 et 1199px : marche pas
-- width a 100% pour l'input ouvert : marche pas ni avec width ni avec col-12
 
 
 

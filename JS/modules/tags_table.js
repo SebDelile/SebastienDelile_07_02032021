@@ -2,7 +2,7 @@
 //----------------------------------- imports(s) ----------------------------------------------
 //--------------------------------------------------------------------------------------------
 
-import { tagsCategoriesRelatedHtml } from "../main.js";
+import { tagsCategories } from "../main.js";
 import {norm} from "./utils.js"
 
 //--------------------------------------------------------------------------------------------
@@ -39,7 +39,7 @@ export class TagsSubTable {
     this.sum = {};
     this.test = {};
     this.category = category;
-    this.relatedGrid = tagsCategoriesRelatedHtml[category];
+    this.relatedGrid = tagsCategories[category];
   }
   importTag(tag) {
     //to initiate the table

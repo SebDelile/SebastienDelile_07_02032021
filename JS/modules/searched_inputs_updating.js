@@ -2,7 +2,7 @@
 //----------------------------------- imports(s) ----------------------------------------------
 //--------------------------------------------------------------------------------------------
 
-import { searchedInputs, listRecipes, gridRecipes } from "../main.js";
+import { searchedInputs, mainSearchInput, listRecipes } from "../main.js";
 import { norm } from "./utils.js";
 import { searchAlgoritm } from "./search_algoritm.js";
 import {tagsUpdatingReset} from "./tags_updating.js"
@@ -11,12 +11,14 @@ import {tagsUpdatingReset} from "./tags_updating.js"
 //----------------------------- Intermediate stage(s) ----------------------------------------
 //--------------------------------------------------------------------------------------------
 
-function noResultMessage () {
+function noRecipesTest () {
   const message = document.querySelector(".recipe__grid__message")
   if (listRecipes.shown.length === 0) {
     message.classList.toggle("hidden", false)
+    mainSearchInput.setCustomValidity("nop");
   } else {
-    message.classList.toggle("hidden", true)
+    message.classList.toggle("hidden", true);
+    mainSearchInput.setCustomValidity("");
   }
 }
 
@@ -113,6 +115,6 @@ export function searchedInputsUpdating(category, type, value) {
       listRecipes.updateList(searchAlgoritm, mode, "all");
       break;
   }
-  noResultMessage();
+  noRecipesTest();
   listRecipes.updateTags();
 }
