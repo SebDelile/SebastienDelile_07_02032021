@@ -2,7 +2,7 @@
 //----------------------------------- imports(s) ----------------------------------------------
 //--------------------------------------------------------------------------------------------
 
-import { searchedInputs, mainSearchInput, listRecipes } from "../main.js";
+import { criteria, mainSearchInput, listRecipes } from "../main.js";
 import { norm } from "./utils.js";
 import { searchAlgoritm } from "./search_algoritm.js";
 import {tagsUpdatingReset} from "./tags_updating.js"
@@ -11,11 +11,12 @@ import {tagsUpdatingReset} from "./tags_updating.js"
 //----------------------------- Intermediate stage(s) ----------------------------------------
 //--------------------------------------------------------------------------------------------
 
+//to display the message when no recipe are matching the filtering criteria
 function noRecipesTest () {
   const message = document.querySelector(".recipe__grid__message")
   if (listRecipes.shown.length === 0) {
     message.classList.toggle("hidden", false)
-    mainSearchInput.setCustomValidity("nop");
+    mainSearchInput.setCustomValidity("nop"); //for the animation to be performed
   } else {
     message.classList.toggle("hidden", true);
     mainSearchInput.setCustomValidity("");
@@ -27,24 +28,24 @@ function noRecipesTest () {
 //--------------------------------------------------------------------------------------------
 
 //takes the selected constraints and updates the object passed as input for the search function
-export function searchedInputsUpdating(category, type, value) {
+export function criteriaUpdating(category, type, value) {
   //clear tag input fields and initiates variables
   tagsUpdatingReset()
   let mode = "";
   let sligthCriterion = "";
   if (category === "mainSearch") {
     //update the field keeping previous input in a buffer
-    const previousInputs = searchedInputs.mainSearch;
+    const previousInputs = criteria.mainSearch;
     if (value.length >= 3) {
-      searchedInputs.mainSearch = norm(value)
+      criteria.mainSearch = norm(value)
         .split("_")
         .filter((el) => el !== "");
     } else {
-      searchedInputs.mainSearch = [];
+      criteria.mainSearch = [];
     }
-    const actualInputs = searchedInputs.mainSearch;
+    const actualInputs = criteria.mainSearch;
     //compare previous with actual inputs
-    //1st : ignore all word being in both input :
+    //deletes all words being in both input :
     const duplicates = [];
     for (let previousInput of previousInputs) {
       if (actualInputs.includes(previousInput)) {
@@ -71,11 +72,11 @@ export function searchedInputsUpdating(category, type, value) {
       case "1_1":
         //a word was modified
         if (actualInputs[0].includes(previousInputs[0])) {
-          // a char was added to the word, need to search for this word only
+          // a char was added at the beginning or the ending of the word, need to search for this word only
           mode = "moreStrict";
           sligthCriterion = actualInputs[0];
         } else if (actualInputs[0].includes(previousInputs[0])) {
-          //a char was removed to the word, need to search with all remaining criteria
+          //a char was removed from the beginning or the ending of the word, need to search with all remaining criteria
           mode = "lessStrict";
         } else {
           //word changed too significantly, need to restart filter from scratch
@@ -84,7 +85,7 @@ export function searchedInputsUpdating(category, type, value) {
         break;
       default:
         //can occur when one word is cut in two, or two words are grouped as one, or several char are selected and deleted at once, or a copy/paste adds several char at once.
-        //all these cases can't be easily treated so it needs to restart filter from scratch
+        //all these cases can't be easily treated so it needs to restart filtering from scratch
         mode = "tooDifferent";
     }
   } else {
@@ -93,13 +94,13 @@ export function searchedInputsUpdating(category, type, value) {
       case "add":
         //undisplayed elements cannot match this stricter criterion, but displayed element could not match it
         mode = "moreStrict";
-        searchedInputs[category].push(value);
+        criteria[category].push(value); //adds the tag to the criteria
         sligthCriterion = value;
         break;
       case "remove":
-        //all of displayed element match this less strict criterion, but some of undisplayed element could also now match it
+        //all of displayed element match this less strict criterion, but some of undisplayed elements could also now match it
         mode = "lessStrict";
-        searchedInputs[category].splice(searchedInputs[category].indexOf(value), 1);
+        criteria[category].splice(criteria[category].indexOf(value), 1); //removes the tag from the criteria
         break;
     }
   }
@@ -115,6 +116,7 @@ export function searchedInputsUpdating(category, type, value) {
       listRecipes.updateList(searchAlgoritm, mode, "all");
       break;
   }
+  console.log(criteria);
   noRecipesTest();
   listRecipes.updateTags();
 }

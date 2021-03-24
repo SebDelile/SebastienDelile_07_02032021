@@ -2,7 +2,7 @@
 //----------------------------------- imports(s) ---------------------------------------------
 //--------------------------------------------------------------------------------------------
 
-import { searchableTable, searchedInputs, tagsCategories, tagsTable } from "../main.js";
+import { searchableTable, criteria, tagsCategories, tableTags } from "../main.js";
 
 //--------------------------------------------------------------------------------------------
 //----------------------------- Intermediate stage(s) ----------------------------------------
@@ -23,8 +23,9 @@ export class ListNode {
   }
 }
 
-//list to contain recipe's id or tags
-export class DualLinkedList {
+//list to contain recipe's id
+//there are two sub lists to separate shown and hidden recipes
+export class ListRecipes {
   constructor(category) {
     this.shown = {
       head: null,
@@ -36,8 +37,9 @@ export class DualLinkedList {
     };
     this.category = category;
   }
-  updateList(testFunction, mode, searchIn, criteria = searchedInputs) {
-    //takes the parameters to set some useful variables
+
+  updateList(testFunction, mode, searchIn, filteringCriteria = criteria) {
+    //initiation processes
     const list = mode === "moreStrict" || mode === "tooDifferent" ? "shown" : mode === "lessStrict" ? "hidden" : "errorMode";
     if (mode === "tooDifferent") {
       this.concatenate(); // restart from scratch
@@ -46,10 +48,9 @@ export class DualLinkedList {
     const displayToggle = list === "shown" ? true : false; // true means undisplay (add the css class .hidden)
     let node = this[list].head;
     let previousNode = null;
-    
-    //for every node of the list
+    //browses the entire sublist
     while (node) {
-      let condition = testFunction(node.data, searchIn, criteria);
+      let condition = testFunction(node.data, searchIn, filteringCriteria);
       //if list is shown : do something when there is no match, if list is hidden, do something if there is match
       condition = displayToggle ? !condition : condition;
       if (condition) {
@@ -103,19 +104,21 @@ export class DualLinkedList {
       this.hidden.length = 0;
     }
   }
+  //filter all the tags buttons in the tags grid according to their presence in the currently displayed recipes
   updateTags() {
     let list = this.shown.length <= this.hidden.length ? "shown" : "hidden";
     let node = this[list].head;
-    tagsTable.beginTest(list)
+    tableTags.beginTest(list);
     //for every node of the list
     while (node) {
       for (let category in tagsCategories) {
         for (let tag of searchableTable[node.data][category]) {
-          tagsTable[category].testTag(tag, list);
+          tableTags[category].testTag(tag, list);
         }
       }
       node = node.next;
     }
+    tableTags.hideSelectedTags();
   }
   //used for tests
   print(list) {
