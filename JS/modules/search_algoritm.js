@@ -8,6 +8,15 @@ import { searchableTable, tagsCategories } from "../main.js";
 //----------------------------- Intermediate stage(s) ----------------------------------------
 //--------------------------------------------------------------------------------------------
 
+function indexationSearch(word, index) {
+  const test = index.dichotomicSearch(word, word.length);
+  if (test === Math.floor(test)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 //--------------------------------------------------------------------------------------------
 //----------------------------------- Export(s) ----------------------------------------------
 //--------------------------------------------------------------------------------------------
@@ -31,13 +40,7 @@ export function searchAlgoritm(recipeId, searchIn, criteria) {
     }
     //second : the mainSearch inputs
     for (let word of criteria.mainSearch) {
-      let match = false;
-      for (let key in recipeData.mainSearch) {
-        if (recipeData.mainSearch[key].includes(word)) {
-          match = true;
-        }
-      }
-      if (!match) {
+      if (!indexationSearch(word, recipeData.mainSearch)) {
         return false;
       }
     }
@@ -52,13 +55,7 @@ export function searchAlgoritm(recipeId, searchIn, criteria) {
         }
         break;
       case "mainSearch":
-        let match = false;
-        for (let key in recipeData.mainSearch) {
-          if (recipeData.mainSearch[key].includes(criteria)) {
-            match = true;
-          }
-        }
-        return match
+        return indexationSearch(criteria, recipeData.mainSearch);
     }
   }
   //there was no false earlier : it's a full match !

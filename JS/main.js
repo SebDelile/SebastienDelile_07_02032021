@@ -49,7 +49,7 @@ export let criteria = { mainSearch: [], ingredients: [], appliances: [], ustensi
 //--------------------------------------------------------------------------------------------
 //------------------------------------ Data loading ------------------------------------------
 //--------------------------------------------------------------------------------------------
-
+export const total = [];
 //browses the JSON table to include each recipe to the page and to initiate the list and table
 for (let recipe of recipes) {
   //creates the html elements and inserts in the DOM
@@ -67,6 +67,19 @@ for (let recipe of recipes) {
   //fills the table to be searched in by the algoritm
   searchableTableFilling(recipe);
 }
+/*
+//stats on the increase of weigth
+let sumIndex = 0;
+let sumString = 0;
+for (let entry in total) {
+  sumIndex += total[entry][1];
+  sumString += total[entry][0];
+} 
+let averageGrownth = sumIndex/sumString
+console.log(`avgIndex : ${sumIndex/50}`);
+console.log(`avgString : ${sumString/50}`);
+console.log(`avgGrownth : ${averageGrownth}`);
+*/
 
 //--------------------------------------------------------------------------------------------
 //--------------------------------- Event listeners ------------------------------------------
