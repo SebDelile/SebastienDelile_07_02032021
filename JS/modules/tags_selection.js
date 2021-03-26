@@ -2,8 +2,8 @@
 //----------------------------------- imports(s) ---------------------------------------------
 //--------------------------------------------------------------------------------------------
 
-import {tagsTable } from "../main.js";
-import {searchedInputsUpdating} from "./searched_inputs_updating.js"
+import {tableTags } from "../main.js";
+import {criteriaUpdating} from "./criteria_updating.js"
 import {norm} from "./utils.js";
 
 //--------------------------------------------------------------------------------------------
@@ -48,13 +48,13 @@ export function tagsSelectionClick(target) {
   const category = target.dataset.category;
   let element = createSelectedTagElement(tagname, category);
   selectedTagsSection.querySelector(".selectedtag__wrapper").append(element);
-  searchedInputsUpdating(category, "add", norm(tagname));
+  criteriaUpdating(category, "add", norm(tagname));
   selectedTagsSectionVisibility();
   document.querySelector(".searchedtag").focus();
   //add eventlistener to remove the tag on click
   element.addEventListener("click", function () {
     element.remove();
-    searchedInputsUpdating(category, "remove", norm(tagname));
+    criteriaUpdating(category, "remove", norm(tagname));
     selectedTagsSectionVisibility();
   });
 }
@@ -62,7 +62,7 @@ export function tagsSelectionClick(target) {
 export function tagsSelectionInput(target){
   const tagname = norm(target.value);
   const category = target.dataset.category;
-  if (tagsTable[category].sum[tagname]) {
+  if (tableTags[category].sum[tagname]) {
     //the tag exists
     const tagItem = document.getElementById(`${category}-${tagname}`)
     if (!tagItem.classList.contains("hidden")) {

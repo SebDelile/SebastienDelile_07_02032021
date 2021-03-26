@@ -39,7 +39,7 @@
       color: white;
     }
     &:focus {
-      //JS gives the same width as the list (large screen only)
+      //JS gives the same width as the grid (large screen only)
       padding-left: 1.125rem;
     }
     &:invalid {
@@ -63,7 +63,7 @@
       }
     }
   }
-  &__list {
+  &__grid {
     display: none;
     &--visible {
       display:grid;

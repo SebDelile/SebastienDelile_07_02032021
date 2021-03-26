@@ -78,7 +78,7 @@ let focusableElementsArray = [];
 
 //collect all focusable elements and gives focus to first one
 export function tagKeyboardNavigation(tagGrid) {
-  const focusableElements = tagGrid.querySelectorAll(".searchedtag__list__item:not(.hidden):not(.searchedtag__list__item--hidden) .searchedtag__list__button");
+  const focusableElements = tagGrid.querySelectorAll(".searchedtag__grid__item:not(.hidden):not(.searchedtag__grid__item--hidden) .searchedtag__grid__button");
   focusableElementsArray = [];
   for (let focusableElement of focusableElements) {
     focusableElementsArray.push(focusableElement);

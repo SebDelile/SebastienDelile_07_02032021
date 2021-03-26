@@ -14,35 +14,45 @@ import {norm} from "./utils.js"
 //----------------------------------- Export(s) ----------------------------------------------
 //--------------------------------------------------------------------------------------------
 
-export class TagsTable {
+//the table containing the three tags subtable
+export class TableTags {
   constructor() {
-    
+    //nothiing here, only subtables to be added
   }
+  //add the corresponding subtable
   addSubTable(category) {
-    this[category] = new TagsSubTable(category)
+    this[category] = new SubTableTags(category)
   }
+      //initiate a test by clearing the test area and updating the visibility of the tags depending on the list being browsed
+
   beginTest(list) {
-    //initiate a test by clearing the test area and updating the visibility of the tags depending on the list being browsed
     for (let category in this) {
       this[category].test = {};
     }
     const toggleDisplay = list === "shown" ? true : false; //browsing shown : every tags is hidden and each match turns the tag visible. opposite when browsing hidden
-    const searchedTagItems = document.getElementsByClassName("searchedtag__list__item");  
+    const searchedTagItems = document.getElementsByClassName("searchedtag__grid__item");  
     for (let searchedTagItem of searchedTagItems) {
         searchedTagItem.classList.toggle("hidden", toggleDisplay)
       }
   }
+  //to avoid a selected tag to appear in the grid of tag suggestions (even if it actually fits all criteria)
+  hideSelectedTags() {
+    const selectedTags = document.getElementsByClassName("selectedtag__button");
+    for (let selectedTag of selectedTags) {
+      document.getElementById(`${selectedTag.dataset.category}-${norm(selectedTag.textContent)}`).classList.toggle("hidden", true);
+    }
+  }
 }
 
-export class TagsSubTable {
+export class SubTableTags {
   constructor(category) {
     this.sum = {};
     this.test = {};
     this.category = category;
     this.relatedGrid = tagsCategories[category];
   }
+  //to initiate the table
   importTag(tag) {
-    //to initiate the table
     if (this.sum.hasOwnProperty(norm(tag))) {
       this.sum[norm(tag)]++;
     } else {
@@ -50,18 +60,20 @@ export class TagsSubTable {
       this.relatedGrid.append(this.createTagElement(this.category, tag));
     }
   }
+  //create the HMTL element to be put in the grid of tag suggestion
   createTagElement(category, tag) {
     let element = document.createElement("li");
-    element.classList.add("searchedtag__list__item");
+    element.classList.add("searchedtag__grid__item");
     element.setAttribute("id", `${category}-${norm(tag)}`);
-    element.innerHTML = `<button class="searchedtag__list__button" data-category ="${category}" tabindex=-1>${tag}</button>`;
+    element.innerHTML = `<button class="searchedtag__grid__button" data-category ="${category}" tabindex=-1>${tag}</button>`;
     return element;
   }
+  //the method to check if a tag should be included in the tag suggestion grid. To be called after each recipes update 
   testTag(tag, list) {
     if (list === "shown") {
-      //browses the shown list, each times a tag appears, it turns shown (no need to duplicate)
+      //browses the shown list, each times a tag appears, it turns shown (no need to do several times)
       if (!this.test.hasOwnProperty(tag)) {
-        this.test[tag] = 1; //whatever the value, this adds the key
+        this.test[tag] = 1; //whatever the value, the point is to add the key
         document.getElementById(`${this.category}-${tag}`).classList.toggle("hidden", false);
       }
     }
