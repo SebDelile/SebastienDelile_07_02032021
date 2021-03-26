@@ -12,7 +12,7 @@ function indexationSearch(word, dictionnary) {
   const wordLength = word.length;
   if (wordLength >= 16) {
     //bigger word are not cut into subword, do naive serach in the table of big words
-    for (entry of dictionnary[16]) {
+    for (let entry of dictionnary[16]) {
       if (entry.includes(word)) {
         return true;
       }

@@ -96,7 +96,7 @@ export function searchableTableFilling(recipe) {
     ingredients: [], // need to eliminate quantity and unit fields, see below
     appliances: [norm(recipe.appliance)], // as a table to be consistent with other tags, even if there is only one element inside
     ustensils: recipe.ustensils.map((el) => norm(el)),
-    mainSearch: new Index
+    mainSearch: new Index()
   };
   norm(recipe.name).split("_").forEach(el => element.mainSearch.insertSubWords(el));
   //let string = norm(recipe.name);
