@@ -34,7 +34,7 @@ function indexationSearch(word, dictionnary) {
 //--------------------------------------------------------------------------------------------
 
 //the method to search in the table is related to the filtering algorithm
-//here is a naive method just to have something while testing other features
+//here is a indexation method searching in a preprocessed dictionnary
 
 //it returns true if there is a match, and false if there is no match
 export function searchAlgoritm(recipeId, searchIn, criteria) {
