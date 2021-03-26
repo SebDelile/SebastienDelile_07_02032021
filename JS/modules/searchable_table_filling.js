@@ -54,14 +54,14 @@ class Index {
       checking = dictionnary[position].localeCompare(word);
       if (checking === 0) {
         return position;
-      } else if (checking < 0) {
+      } else if (checking > 0) {
         upperBound = position - 1;
       } else {
         lowerBound = position + 1;
       }
     }
     //if there is no match, adds or substracts 0.5 to pass the position where the word should be added
-    position += checking < 0 ? -0.5 : 0.5;
+    position += checking > 0 ? -0.5 : 0.5;
     return position;
   }
   addWord(word, wordLength) {

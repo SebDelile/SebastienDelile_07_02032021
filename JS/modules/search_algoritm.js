@@ -8,12 +8,24 @@ import { searchableTable, tagsCategories } from "../main.js";
 //----------------------------- Intermediate stage(s) ----------------------------------------
 //--------------------------------------------------------------------------------------------
 
-function indexationSearch(word, index) {
-  const test = index.dichotomicSearch(word, word.length);
-  if (test === Math.floor(test)) {
-    return true;
-  } else {
+function indexationSearch(word, dictionnary) {
+  const wordLength = word.length;
+  if (wordLength >= 16) {
+    //bigger word are not cut into subword, do naive serach in the table of big words
+    for (entry of dictionnary[16]) {
+      if (entry.includes(word)) {
+        return true;
+      }
+    }
     return false;
+  } else {
+    //do the dichotomic search of word into the subwords of the dictionnary
+    const test = dictionnary.dichotomicSearch(word, wordLength);
+    if (test === Math.floor(test)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
 
