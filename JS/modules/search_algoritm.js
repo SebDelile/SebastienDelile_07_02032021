@@ -8,6 +8,30 @@ import { searchableTable, tagsCategories } from "../main.js";
 //----------------------------- Intermediate stage(s) ----------------------------------------
 //--------------------------------------------------------------------------------------------
 
+function naiveSearch(word, recipeData) {
+  for (let field in recipeData) {
+    let i = 0;
+    while (i < recipeData[field].length) {
+      if (word[0] === recipeData[field][i]) {
+        if ((word.length === 1)) {
+          return true;
+        } else {
+          let j = 1;
+          while (word[j] === recipeData[field][i + j]) {
+            if (j === word.length - 1) {
+              return true;
+            } else {
+              j++;
+            }
+          }
+        }
+      }
+      i++;
+    }
+  }
+  return false;
+}
+
 //--------------------------------------------------------------------------------------------
 //----------------------------------- Export(s) ----------------------------------------------
 //--------------------------------------------------------------------------------------------
@@ -31,13 +55,7 @@ export function searchAlgoritm(recipeId, searchIn, criteria) {
     }
     //second : the mainSearch inputs
     for (let word of criteria.mainSearch) {
-      let match = false;
-      for (let key in recipeData.mainSearch) {
-        if (recipeData.mainSearch[key].includes(word)) {
-          match = true;
-        }
-      }
-      if (!match) {
+      if (!naiveSearch(word, recipeData.mainSearch)) {
         return false;
       }
     }
@@ -52,13 +70,9 @@ export function searchAlgoritm(recipeId, searchIn, criteria) {
         }
         break;
       case "mainSearch":
-        let match = false;
-        for (let key in recipeData.mainSearch) {
-          if (recipeData.mainSearch[key].includes(criteria)) {
-            match = true;
-          }
+        if (!naiveSearch(criteria, recipeData.mainSearch)) {
+          return false;
         }
-        return match
     }
   }
   //there was no false earlier : it's a full match !
