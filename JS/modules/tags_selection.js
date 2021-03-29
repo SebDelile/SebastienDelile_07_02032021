@@ -24,6 +24,7 @@ function createSelectedTagElement(tagname, category) {
   element.setAttribute("type", "button");
   element.setAttribute("data-category", category);
   element.textContent = tagname;
+  console.log(`function tag creation tagname : ${tagname}`)
   return element;
 }
 
@@ -44,6 +45,7 @@ function selectedTagsSectionVisibility() {
 //--------------------------------------------------------------------------------------------
 
 export function tagsSelectionClick(target) {
+  console.log(`function tag selection target : ${target}`)
   const tagname = target.textContent;
   const category = target.dataset.category;
   let element = createSelectedTagElement(tagname, category);

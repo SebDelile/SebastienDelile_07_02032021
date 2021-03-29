@@ -136,6 +136,7 @@ for (let wrapper of wrapperSearchedTag) {
 for (let button of searchedTagButtons) {
   button.addEventListener("click", function (event) {
     tagsSelectionClick(event.target);
+    console.log("event click main.js")
   });
 }
 
