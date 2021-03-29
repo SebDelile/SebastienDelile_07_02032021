@@ -132,10 +132,15 @@ for (let wrapper of wrapperSearchedTag) {
   });
 }
 
-//deletes the selected tag when clicked
+//picks the selected tag when clicked
 for (let button of searchedTagButtons) {
+  button.addEventListener("mousedown", function (event) {
+    console.log("event mousedown")
+    event.preventDefault();
+  });
   button.addEventListener("click", function (event) {
+    console.log("event click before main.js")
     tagsSelectionClick(event.target);
+    console.log("event click after main.js")
   });
 }
-
