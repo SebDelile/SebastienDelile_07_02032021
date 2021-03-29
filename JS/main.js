@@ -128,7 +128,7 @@ for (let wrapper of wrapperSearchedTag) {
     if (!this.contains(event.relatedTarget)) {
       tagsUpdatingGridDisplay(false, input, icon, grid);
       input.classList.toggle("searchedtag__input--noshadow", false);
-      console.log("event focusout main.js")
+      //console.log("event focusout main.js")
     }
   });
 }
@@ -142,3 +142,8 @@ for (let button of searchedTagButtons) {
   });
 }
 
+document.addEventListener("focusin", function(event) {
+  console.group(`focus moved to`);
+  console.log(event.target);
+  console.groupEnd()
+})
