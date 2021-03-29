@@ -124,13 +124,13 @@ for (let wrapper of wrapperSearchedTag) {
   });
 
   //if the container looses the focus : closes the grid
-  wrapper.addEventListener("focusout", function (event) {
+  /*wrapper.addEventListener("focusout", function (event) {
     if (!this.contains(event.relatedTarget)) {
       tagsUpdatingGridDisplay(false, input, icon, grid);
       input.classList.toggle("searchedtag__input--noshadow", false);
       //console.log("event focusout main.js")
     }
-  });
+  });*/
 }
 
 //deletes the selected tag when clicked
