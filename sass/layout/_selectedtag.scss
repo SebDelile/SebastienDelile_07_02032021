@@ -14,7 +14,7 @@
     margin-right: 10px;
     margin-bottom: 0.5rem;
     &:focus, &:hover {
-      text-decoration: underline solid white 0.125rem;
+      text-decoration: underline solid white;
       &::after {
         transform: rotate(360deg)
       } 

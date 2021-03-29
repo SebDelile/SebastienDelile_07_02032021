@@ -128,12 +128,11 @@ for (let wrapper of wrapperSearchedTag) {
     if (!this.contains(event.relatedTarget)) {
       tagsUpdatingGridDisplay(false, input, icon, grid);
       input.classList.toggle("searchedtag__input--noshadow", false);
-      //console.log("event focusout main.js")
     }
   });
 }
 
-//deletes the selected tag when clicked
+//picks the selected tag when clicked
 for (let button of searchedTagButtons) {
   button.addEventListener("mousedown", function (event) {
     console.log("event mousedown")
@@ -145,9 +144,3 @@ for (let button of searchedTagButtons) {
     console.log("event click after main.js")
   });
 }
-
-document.addEventListener("focusin", function(event) {
-  console.group(`focus moved to`);
-  console.log(event.target);
-  console.groupEnd()
-})

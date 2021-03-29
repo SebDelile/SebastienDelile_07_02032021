@@ -198,7 +198,7 @@ body {
   margin-bottom: 0.5rem;
 }
 .selectedtag__button:focus, .selectedtag__button:hover {
-  text-decoration: underline solid white 0.125rem;
+  text-decoration: underline solid white;
 }
 .selectedtag__button:focus::after, .selectedtag__button:hover::after {
   transform: rotate(360deg);

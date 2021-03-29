@@ -116,7 +116,6 @@ export function criteriaUpdating(category, type, value) {
       listRecipes.updateList(searchAlgoritm, mode, "all");
       break;
   }
-  console.log(criteria);
   noRecipesTest();
   listRecipes.updateTags();
 }
