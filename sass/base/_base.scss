@@ -31,19 +31,19 @@ button {
 }
 
 [data-category="ingredients"] {
-    background-color: $color-ingredients;
-    color: white;
-  }
+  background-color: $color-ingredients;
+  color: white;
+}
 [data-category="ustensils"] {
-    background-color: $color-ustensils;
-    color: white;
-  }
+  background-color: $color-ustensils;
+  color: white;
+}
 [data-category="appliances"] {
-    background-color: $color-appliances;
-    color: white;
-  }
+  background-color: $color-appliances;
+  color: white;
+}
 
 
 .hidden {
-  display:none;
+  display: none;
 }

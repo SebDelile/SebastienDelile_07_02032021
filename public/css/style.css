@@ -148,6 +148,7 @@ body {
   -webkit-line-clamp: 7;
   overflow: hidden;
 }
+
 .mainsearch {
   margin-bottom: 1.25rem;
 }
@@ -260,6 +261,7 @@ body {
 }
 .searchedtag__input::placeholder {
   color: white;
+  opacity: 1;
 }
 .searchedtag__input:focus {
   padding-left: 1.125rem;

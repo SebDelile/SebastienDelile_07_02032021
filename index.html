@@ -10,6 +10,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" type="text/css" href="./public/css/style.css" />
+    <link rel="shortcut icon" type="image/ico" href="./public/img/favicon.ico"/>
     <title>Les petits plats</title>
   </head>
 
@@ -24,7 +25,8 @@
       <section class="mainsearch row">
         <h2 class="sr-only">Recherche par mots clefs</h2>
         <div class="mainsearch__input__wrapper col">
-          <input type="text" class="mainsearch__input" placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette" />
+          <input type="text" class="mainsearch__input" id="mainsearch__input" placeholder="Rechercher un ingrédient, appareil, ustensiles ou une recette" />
+          <label class="hidden" for="mainsearch__input">Barre de recherche princpale</label>
           <img class="mainsearch__icon" src="public/img/icons/search.svg" alt="loupe" aria-hidden="true" />
         </div>
       </section>
@@ -35,23 +37,32 @@
       <section class="searchedtag row" tabindex="-1">
         <h2 class="sr-only">Recherche par tags</h2>
         <div class="searchedtag__wrapper col-12 col-md">
-          <input type="text" class="searchedtag__input" data-category="ingredients" placeholder="Ingrédients" />
-          <button class="searchedtag__icon" type=button tabindex=-1 data-category="ingredients"><img class="searchedtag__icon__image" src="public/img/icons/menu.svg" alt="icon-menu" aria-hidden="true" /></button>
-          <ul class="searchedtag__grid" data-category="ingredients">
+          <input type="text" class="searchedtag__input" id="searchedtag__input__ingredients" data-category="ingredients" placeholder="Ingrédients" />
+          <label class="hidden" for="searchedtag__input__ingredients">Barre de recherche secondaire : Ingrédients</label>
+          <button class="searchedtag__icon" type="button" tabindex="-1" data-category="ingredients">
+            <img class="searchedtag__icon__image" src="public/img/icons/menu.svg" alt="icon-menu" aria-hidden="true" />
+          </button>
+          <ul class="searchedtag__grid" aria-expanded="false" data-category="ingredients">
             <li class="searchedtag__grid__message hidden">Aucune correspondance</li>
           </ul>
         </div>
         <div class="searchedtag__wrapper col-12 col-md">
-          <input type="text" class="searchedtag__input" data-category="appliances" placeholder="Appareils" />
-          <button class="searchedtag__icon" type=button tabindex=-1 data-category="appliances"><img class="searchedtag__icon__image" src="public/img/icons/menu.svg" alt="icon-menu" aria-hidden="true" /></button>
-          <ul class="searchedtag__grid" data-category="appliances">
+          <input type="text" class="searchedtag__input" id="searchedtag__input__appliances" data-category="appliances" placeholder="Appareils" />
+          <label class="hidden" for="searchedtag__input__appliances">Barre de recherche secondaire : Ingrédients</label>
+          <button class="searchedtag__icon" type="button" tabindex="-1" data-category="appliances">
+            <img class="searchedtag__icon__image" src="public/img/icons/menu.svg" alt="icon-menu" aria-hidden="true" />
+          </button>
+          <ul class="searchedtag__grid" aria-expanded="false" data-category="appliances">
             <li class="searchedtag__grid__message hidden">Aucune correspondance</li>
           </ul>
         </div>
         <div class="searchedtag__wrapper col-12 col-md">
-          <input type="text" class="searchedtag__input" data-category="ustensils" placeholder="Ustensiles" />
-          <button class="searchedtag__icon" type=button tabindex=-1 data-category="ustensils"><img class="searchedtag__icon__image" src="public/img/icons/menu.svg" alt="icon-menu" aria-hidden="true" /></button>
-          <ul class="searchedtag__grid" data-category="ustensils">
+          <input type="text" class="searchedtag__input" id="searchedtag__input__ustensils" data-category="ustensils" placeholder="Ustensiles" />
+          <label class="hidden" for="searchedtag__input__ustensils">Barre de recherche secondaire : Ingrédients</label>
+          <button class="searchedtag__icon" type="button" tabindex="-1" data-category="ustensils">
+            <img class="searchedtag__icon__image" src="public/img/icons/menu.svg" alt="icon-menu" aria-hidden="true" />
+          </button>
+          <ul class="searchedtag__grid" aria-expanded="false" data-category="ustensils">
             <li class="searchedtag__grid__message hidden">Aucune correspondance</li>
           </ul>
         </div>
@@ -63,6 +74,7 @@
       </section>
     </div>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- All this stuff isn't actually used
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
@@ -73,7 +85,7 @@
       src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
       integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
       crossorigin="anonymous"
-    ></script>
+    ></script>-->
     <script type="module" src="./JS/main.js"></script>
   </body>
 </html>

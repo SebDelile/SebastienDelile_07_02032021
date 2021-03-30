@@ -5,17 +5,17 @@
 import { criteria, mainSearchInput, listRecipes } from "../main.js";
 import { norm } from "./utils.js";
 import { searchAlgoritm } from "./search_algoritm.js";
-import {tagsUpdatingReset} from "./tags_updating.js"
+import { tagsUpdatingReset } from "./tags_updating.js";
 
 //--------------------------------------------------------------------------------------------
 //----------------------------- Intermediate stage(s) ----------------------------------------
 //--------------------------------------------------------------------------------------------
 
 //to display the message when no recipe are matching the filtering criteria
-function noRecipesTest () {
-  const message = document.querySelector(".recipe__grid__message")
+function noRecipesTest() {
+  const message = document.querySelector(".recipe__grid__message");
   if (listRecipes.shown.length === 0) {
-    message.classList.toggle("hidden", false)
+    message.classList.toggle("hidden", false);
     mainSearchInput.setCustomValidity("nop"); //for the animation to be performed
   } else {
     message.classList.toggle("hidden", true);
@@ -30,7 +30,7 @@ function noRecipesTest () {
 //takes the selected constraints and updates the object passed as input for the search function
 export function criteriaUpdating(category, type, value) {
   //clear tag input fields and initiates variables
-  tagsUpdatingReset()
+  tagsUpdatingReset();
   let mode = "";
   let sligthCriterion = "";
   if (category === "mainSearch") {
@@ -75,7 +75,7 @@ export function criteriaUpdating(category, type, value) {
           // a char was added at the beginning or the ending of the word, need to search for this word only
           mode = "moreStrict";
           sligthCriterion = actualInputs[0];
-        } else if (actualInputs[0].includes(previousInputs[0])) {
+        } else if (previousInputs[0].includes(actualInputs[0])) {
           //a char was removed from the beginning or the ending of the word, need to search with all remaining criteria
           mode = "lessStrict";
         } else {

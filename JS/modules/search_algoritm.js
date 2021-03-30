@@ -8,12 +8,14 @@ import { searchableTable, tagsCategories } from "../main.js";
 //----------------------------- Intermediate stage(s) ----------------------------------------
 //--------------------------------------------------------------------------------------------
 
+//performs a naive search in each of the field of the recipeData
+//compare the first char of the word to the actual position in the field, if it matches : test the char until full match is found, else go to next char in the field
 function naiveSearch(word, recipeData) {
   for (let field in recipeData) {
     let i = 0;
     while (i < recipeData[field].length) {
       if (word[0] === recipeData[field][i]) {
-        if ((word.length === 1)) {
+        if (word.length === 1) {
           return true;
         } else {
           let j = 1;
@@ -42,7 +44,6 @@ function naiveSearch(word, recipeData) {
 //it returns true if there is a match, and false if there is no match
 export function searchAlgoritm(recipeId, searchIn, criteria) {
   const recipeData = searchableTable[recipeId];
-  //console.log(searchIn)
   if (searchIn === "all") {
     // criteria is searchInputs (ie. all mainSearch entries + all selected tags) and all inputs have to match the recipes info
     //first : the tag (should be quicker)

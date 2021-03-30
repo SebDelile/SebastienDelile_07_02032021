@@ -21,7 +21,7 @@ export function searchableTableFilling(recipe) {
   let element = {
     ingredients: [], // need to eliminate quantity and unit fields, see below
     appliances: [norm(recipe.appliance)], // as a table to be consistent with other tags, even if there is only one element inside
-    ustensils: recipe.ustensils.map(el => norm(el)),
+    ustensils: recipe.ustensils.map((el) => norm(el)),
     mainSearch: {
       name: norm(recipe.name),
       description: norm(recipe.description),
