@@ -25,6 +25,7 @@ export class ListNode {
 
 //list to contain recipe's id
 //there are two sub lists to separate shown and hidden recipes
+//elements will be moved from one to another
 export class ListRecipes {
   constructor(category) {
     this.shown = {

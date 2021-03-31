@@ -2,9 +2,9 @@
 //----------------------------------- imports(s) ---------------------------------------------
 //--------------------------------------------------------------------------------------------
 
-import {tableTags } from "../main.js";
-import {criteriaUpdating} from "./criteria_updating.js"
-import {norm} from "./utils.js";
+import { tableTags } from "../main.js";
+import { criteriaUpdating } from "./criteria_updating.js";
+import { norm } from "./utils.js";
 
 //--------------------------------------------------------------------------------------------
 //---------------------------------- DOM elements --------------------------------------------
@@ -37,12 +37,11 @@ function selectedTagsSectionVisibility() {
   }
 }
 
-
-
 //--------------------------------------------------------------------------------------------
 //----------------------------------- Export(s) ----------------------------------------------
 //--------------------------------------------------------------------------------------------
 
+//adds the tag in the selected tag section, and launch updating of the displayed recipes
 export function tagsSelectionClick(target) {
   const tagname = target.textContent;
   const category = target.dataset.category;
@@ -59,22 +58,21 @@ export function tagsSelectionClick(target) {
   });
 }
 
-export function tagsSelectionInput(target){
+// checks if the input is suitable, and if so make a click on the corresponding tag button
+export function tagsSelectionInput(target) {
   const tagname = norm(target.value);
   const category = target.dataset.category;
   if (tableTags[category].sum[tagname]) {
     //the tag exists
-    const tagItem = document.getElementById(`${category}-${tagname}`)
+    const tagItem = document.getElementById(`${category}-${tagname}`);
     if (!tagItem.classList.contains("hidden")) {
       //and it is available => clicks it
       tagItem.querySelector("button").click();
-    }
-    else {
+    } else {
       //else set invalid to run the shacking animation
       target.setCustomValidity("nop");
     }
-  }
-  else {
+  } else {
     //same as above
     target.setCustomValidity("nop");
   }

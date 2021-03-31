@@ -15,7 +15,7 @@ let keyLog = function (e) {
     document.querySelector(`.searchedtag__input[data-category=${category}]`).focus();
   } else if (e.which !== 37 && e.which !== 38 && e.which !== 39 && e.which !== 40) {
     //other than arrows, BTW TAB and shift+TAB will go to next previous or focusable elements (but not to the buttons because of tabindex=-1)
-    return
+    return;
   } else {
     //arrows
     e.preventDefault();
@@ -23,7 +23,7 @@ let keyLog = function (e) {
     let newPosition = oldPosition;
     const lastElement = focusableElementsArray.length - 1;
     if (e.which === 38) {
-       //up arrow
+      //up arrow
       newPosition--;
       if (newPosition < 0) {
         //exit the loop and go to the input field
@@ -59,8 +59,8 @@ let keyLog = function (e) {
           newPosition = lastElement % 10;
         }
       }
-    }  
-    //set the new position
+    }
+    //set focus to the new position
     focusableElementsArray[newPosition].focus();
   }
 };

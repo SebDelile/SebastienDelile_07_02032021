@@ -2,7 +2,7 @@
 //------------------------------ Import from modules -----------------------------------------
 //--------------------------------------------------------------------------------------------
 
-import { ListRecipes, ListNode } from "./modules/list_recipes_class.js";
+import { ListRecipes } from "./modules/list_recipes_class.js";
 import { recipes } from "./modules/recipes_table.js";
 import { recipeElementGenerator } from "./modules/recipe_element_generator.js";
 import { searchableTableFilling } from "./modules/searchable_table_filling.js";
@@ -41,7 +41,7 @@ tableTags.addSubTable("appliances");
 tableTags.addSubTable("ustensils");
 
 //the table to be search in during the filtering processes (both recipe and tags), to be filled during data loading section.
-//Index 0 is used to avoid data on index 0 and so to make the index to correspond to the recipe's ID
+//Index0 is used to avoid data on index 0 and so to make the index to correspond to the recipe's ID
 export const searchableTable = [["index0"]];
 //the table containig all the criteria to filter
 export let criteria = { mainSearch: [], ingredients: [], appliances: [], ustensils: [] };
@@ -77,7 +77,7 @@ mainSearchInput.addEventListener("input", function (event) {
   criteriaUpdating("mainSearch", null, event.target.value);
 });
 
-//Events on the tags search area (lot of them)
+//Events on the tags search area (for each tag category)
 for (let wrapper of wrapperSearchedTag) {
   const icon = wrapper.querySelector(".searchedtag__icon");
   const grid = wrapper.querySelector(".searchedtag__grid");
@@ -89,8 +89,8 @@ for (let wrapper of wrapperSearchedTag) {
     input.classList.toggle("searchedtag__input--noshadow", true);
   });
 
-  // each input on input resets the error status and updates the available tags
-  input.addEventListener("input", function (event) {
+  //each input resets the error status and updates the available tags
+  input.addEventListener("input", function () {
     input.setCustomValidity("");
     tagsUpdatingAvailability(input);
     tagsUpdatingGridDisplay(true, input, icon, grid);
@@ -134,13 +134,11 @@ for (let wrapper of wrapperSearchedTag) {
 
 //picks the selected tag when clicked
 for (let button of searchedTagButtons) {
-  button.addEventListener("mousedown", function (event) {
-    console.log("event mousedown")
-    event.preventDefault();
-  });
   button.addEventListener("click", function (event) {
-    console.log("event click before main.js")
     tagsSelectionClick(event.target);
-    console.log("event click after main.js")
+  });
+  //for safari : mousedown fires first and moves the focus. it closes the grid and the click event never fires.
+  button.addEventListener("mousedown", function (event) {
+    event.preventDefault();
   });
 }

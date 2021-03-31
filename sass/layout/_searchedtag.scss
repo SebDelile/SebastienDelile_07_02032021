@@ -37,6 +37,7 @@
     }
     &::placeholder {
       color: white;
+      opacity: 1;
     }
     &:focus {
       //JS gives the same width as the grid (large screen only)
@@ -66,7 +67,7 @@
   &__grid {
     display: none;
     &--visible {
-      display:grid;
+      display: grid;
     }
     list-style: none;
     border-radius: 0 0 5px 5px;
