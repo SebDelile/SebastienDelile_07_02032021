@@ -41,7 +41,7 @@ tableTags.addSubTable("appliances");
 tableTags.addSubTable("ustensils");
 
 //the table to be search in during the filtering processes (both recipe and tags), to be filled during data loading section.
-//Index 0 is used to avoid data on index 0 and so to make the index to correspond to the recipe's ID
+//Index0 is used to avoid data on index 0 and so to make the index to correspond to the recipe's ID
 export const searchableTable = [["index0"]];
 //the table containig all the criteria to filter
 export let criteria = { mainSearch: [], ingredients: [], appliances: [], ustensils: [] };

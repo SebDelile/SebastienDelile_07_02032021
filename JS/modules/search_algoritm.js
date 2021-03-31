@@ -8,30 +8,25 @@ import { searchableTable, tagsCategories } from "../main.js";
 //----------------------------- Intermediate stage(s) ----------------------------------------
 //--------------------------------------------------------------------------------------------
 
-//performs a naive search in each of the field of the recipeData
-//compare the first char of the word to the actual position in the field, if it matches : test the char until full match is found, else go to next char in the field
-function naiveSearch(word, recipeData) {
-  for (let field in recipeData) {
-    let i = 0;
-    while (i < recipeData[field].length) {
-      if (word[0] === recipeData[field][i]) {
-        if (word.length === 1) {
-          return true;
-        } else {
-          let j = 1;
-          while (word[j] === recipeData[field][i + j]) {
-            if (j === word.length - 1) {
-              return true;
-            } else {
-              j++;
-            }
-          }
-        }
+function indexationSearch(word, dictionnary) {
+  const wordLength = word.length;
+  if (wordLength >= 16) {
+    //bigger word are not cut into subword, do naive serach in the table of big words
+    for (let entry of dictionnary[16]) {
+      if (entry.includes(word)) {
+        return true;
       }
-      i++;
+    }
+    return false;
+  } else {
+    //do the dichotomic search of word into the subwords of the dictionnary
+    const test = dictionnary.dichotomicSearch(word, wordLength);
+    if (test === Math.floor(test)) {
+      return true;
+    } else {
+      return false;
     }
   }
-  return false;
 }
 
 //--------------------------------------------------------------------------------------------
@@ -39,7 +34,7 @@ function naiveSearch(word, recipeData) {
 //--------------------------------------------------------------------------------------------
 
 //the method to search in the table is related to the filtering algorithm
-//here is a naive method just to have something while testing other features
+//here is a indexation method searching in a preprocessed dictionnary
 
 //it returns true if there is a match, and false if there is no match
 export function searchAlgoritm(recipeId, searchIn, criteria) {
@@ -56,7 +51,7 @@ export function searchAlgoritm(recipeId, searchIn, criteria) {
     }
     //second : the mainSearch inputs
     for (let word of criteria.mainSearch) {
-      if (!naiveSearch(word, recipeData.mainSearch)) {
+      if (!indexationSearch(word, recipeData.mainSearch)) {
         return false;
       }
     }
@@ -71,9 +66,7 @@ export function searchAlgoritm(recipeId, searchIn, criteria) {
         }
         break;
       case "mainSearch":
-        if (!naiveSearch(criteria, recipeData.mainSearch)) {
-          return false;
-        }
+        return indexationSearch(criteria, recipeData.mainSearch);
     }
   }
   //there was no false earlier : it's a full match !
