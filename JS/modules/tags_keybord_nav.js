@@ -53,10 +53,10 @@ let keyLog = function (e) {
       newPosition += 10;
       if (newPosition > lastElement) {
         //go to last element, or go to 1st column same row
-        if (oldPosition !== lastElement) {
+        if (oldPosition % 10 > lastElement % 10) {
           newPosition = lastElement;
         } else {
-          newPosition = lastElement % 10;
+          newPosition = oldPosition % 10;
         }
       }
     }
